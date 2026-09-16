@@ -9,8 +9,6 @@ namespace MvcIntro.Controllers
             return Ok("All  products");
         }
 
-        [Route("{controller}/{id}")]
-        [Route("{controller}/{action}/{id?}")]
         public IActionResult Details(int? id)
         {
             if (id == null)

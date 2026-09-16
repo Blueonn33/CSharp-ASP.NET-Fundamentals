@@ -4,9 +4,17 @@ namespace MvcIntro.Controllers
 {
     public class ProductsController : Controller
     {
+        private static readonly IEnumerable<string> products = new List<string>
+        {
+            "Laptops",
+            "Gaming consoles",
+            "TVs"
+        };
+
         public IActionResult Index()
         {
-            return Ok("All  products");
+            ViewData["Products"] = products;
+            return View();
         }
 
         public IActionResult Details(int? id)

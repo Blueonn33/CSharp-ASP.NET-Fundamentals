@@ -20,3 +20,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.welcome-heading {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: aqua;
+}
+.products-heading {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: crimson;
+}

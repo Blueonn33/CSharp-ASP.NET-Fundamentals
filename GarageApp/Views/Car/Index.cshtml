@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GarageApp.Data.Models.Car>
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<h1>All Cars</h1>
+
+<form asp-controller="Car" asp-action="Search" method="get" class="mb-3">
+    <div class="input-group">
+        <input name="make" class="form-control" placeholder="Search by make.."/>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <p>No cars found</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Type</th>
+                <th>Available</th>
+                <th>Garage</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Model)
+            {
+                <tr>
+                    <td>@car.Make</td>
+                    <td>@car.Model</td>
+                    <td>@car.Year</td>
+                    <td>@car.CarType.ToString()</td>
+                    <td>@(car.IsAvailable ? "Yes" : "No")</td>
+                    <td>
+                        @if (car.Garage != null)
+                        {
+                            <a asp-controller="Garage"
+                               asp-action="Details"
+                               asp-route-id="@car.Garage.Id">
+                                @car.Garage.Name
+                            </a>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-controller="Car"
+                           asp-action="Details"
+                           asp-route-id="@car.Id">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

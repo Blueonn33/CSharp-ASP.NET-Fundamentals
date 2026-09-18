@@ -38,7 +38,7 @@ else
                 <tr>
                     <td>@car.Make</td>
                     <td>@car.Model</td>
-                    <td>@(car.ProductionMonth.HasValue ? $"{car.ProductionMonth} / {car.Year}" : $"{car.Year}")</td>
+                    <td>@(car.ProductionMonth.HasValue ? $"{car.ProductionMonth:D2} / {car.Year}" : $"{car.Year}")</td>
                     <td>@car.CarType.ToString()</td>
                     <td>@(car.IsAvailable ? "Yes" : "No")</td>
                     <td>

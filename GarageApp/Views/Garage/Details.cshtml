@@ -1,0 +1,56 @@
+﻿@using GarageApp.Data.Models;
+@model Garage;
+
+@{
+    ViewData["Title"] = "Garage Details";
+}
+
+<h1 class="mb-5">Garage Details</h1>
+
+<div class="mb-3">
+    <h4>@Model.Name</h4>
+    <p class="mb-1"><strong>Location: </strong>@Model.Location</p>
+    <p class="mb-0"><strong>Cars: </strong>@(Model.Cars?.Count ?? 0)</p>
+</div>
+
+<hr />
+
+<h2>Cars in this garage</h2>
+
+@if (Model.Cars == null || !Model.Cars.Any())
+{
+    <p>No cars in this garage</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Production Date</th>
+            <th>Type</th>
+            <th>Available</th>
+            <th></th>
+        </thead>
+        <tbody>
+            @foreach (var car in Model.Cars.OrderBy(c => c.Make).ThenBy(c => c.Model))
+            {
+                <tr>
+                    <td>@car.Make</td>
+                    <td>@car.Model</td>
+                    <td>@(car.ProductionMonth.HasValue ? $"{car.ProductionMonth} / {car.Year}" : $"{car.Year}")</td>
+                    <td>@car.CarType.ToString()</td>
+                    <td>@(car.IsAvailable ? "Yes" : "No")</td>
+                    <td>
+                        <a asp-controller="Car"
+                           asp-action="Details"
+                           asp-route-id="@car.Id"
+                           class="btn btn-warning">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

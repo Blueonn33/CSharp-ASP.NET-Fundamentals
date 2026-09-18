@@ -24,7 +24,7 @@ else
             <tr>
                 <th>Make</th>
                 <th>Model</th>
-                <th>Year</th>
+                <th>Production Date</th>
                 <th>Type</th>
                 <th>Available</th>
                 <th>Garage</th>
@@ -37,7 +37,7 @@ else
                 <tr>
                     <td>@car.Make</td>
                     <td>@car.Model</td>
-                    <td>@car.Year</td>
+                    <td>@(car.ProductionMonth.HasValue ? $"{car.ProductionMonth:D2} / {car.Year}" : $"{car.Year}")</td>
                     <td>@car.CarType.ToString()</td>
                     <td>@(car.IsAvailable ? "Yes" : "No")</td>
                     <td>
@@ -45,7 +45,8 @@ else
                         {
                             <a asp-controller="Garage"
                                asp-action="Details"
-                               asp-route-id="@car.Garage.Id">
+                               asp-route-id="@car.Garage.Id"
+                               class="btn btn-warning">
                                 @car.Garage.Name
                             </a>
                         }
@@ -57,7 +58,8 @@ else
                     <td>
                         <a asp-controller="Car"
                            asp-action="Details"
-                           asp-route-id="@car.Id">
+                           asp-route-id="@car.Id"
+                           class="btn btn-info">
                             Details
                         </a>
                     </td>

@@ -17,21 +17,21 @@ namespace GarageApp.Controllers
         [HttpGet]
         public IActionResult Index(string? make)
         {
-            if (string.IsNullOrEmpty(make))
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            IEnumerable<Car> allCars = _dbContext.Cars
+            IQueryable<Car> allCarsQuery = _dbContext.Cars
                 .Include(c => c.Garage)
-                //.Where(c => c.Make.ToString().ToLower().Contains(make.ToLower()))
-                .Where(c => EF.Functions.Like(c.Make, $"%{make.ToLower()}%"))
                 .OrderBy(c => c.Make)
                 .ThenBy(c => c.Model)
                 .ThenByDescending(c => c.Year)
                 .ThenByDescending(c => c.ProductionMonth)
-                .Take(25)
-                .ToArray();
+                .Take(25);
+
+            if (!String.IsNullOrEmpty(make))
+            {
+                allCarsQuery = allCarsQuery
+                    .Where(c => EF.Functions.Like(c.Make, $"%{make.ToLower()}%"));
+            }
+
+            IEnumerable<Car> allCars = allCarsQuery.ToArray();
 
             return View(allCars);
         }

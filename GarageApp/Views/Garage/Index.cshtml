@@ -1,0 +1,44 @@
+﻿@using GarageApp.Data.Models
+@model IEnumerable<Garage>
+
+@{
+    ViewData["Title"] = "Garages";
+}
+
+<h1>All Garages</h1>
+
+@if (!Model.Any())
+{
+    <p>No garages found.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Cars</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var garage in Model)
+        {
+            <tr>
+                <td>@garage.Name</td>
+                <td>@garage.Location</td>
+                <td>@(garage.Cars?.Count ?? 0)</td>
+                <td>
+                    <a asp-controller="Garage"
+                       asp-action="Details"
+                       asp-route-id="@garage.Id"
+                       class="btn btn-info">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

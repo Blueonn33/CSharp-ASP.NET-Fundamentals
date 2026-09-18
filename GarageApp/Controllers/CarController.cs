@@ -35,11 +35,5 @@ namespace GarageApp.Controllers
 
             return View(allCars);
         }
-
-        [HttpGet]
-        public IActionResult Search(string? make)
-        {
-            return BadRequest();
-        }
     }
 }

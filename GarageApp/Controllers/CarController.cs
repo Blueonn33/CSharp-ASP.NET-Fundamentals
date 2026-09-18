@@ -15,22 +15,7 @@ namespace GarageApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            IEnumerable<Car> allCars = _dbContext.Cars
-                .Include(c => c.Garage)
-                .OrderBy(c => c.Make)
-                .ThenBy(c => c.Model)
-                .ThenByDescending(c => c.Year)
-                .ThenByDescending(c => c.ProductionMonth)
-                .Take(25)
-                .ToArray();
-
-            return View(allCars);
-        }
-
-        [HttpGet]
-        public IActionResult Search(string? make)
+        public IActionResult Index(string? make)
         {
             if (string.IsNullOrEmpty(make))
             {
@@ -48,7 +33,13 @@ namespace GarageApp.Controllers
                 .Take(25)
                 .ToArray();
 
-            return View(nameof(Index), allCars);
+            return View(allCars);
+        }
+
+        [HttpGet]
+        public IActionResult Search(string? make)
+        {
+            return BadRequest();
         }
     }
 }

@@ -1,3 +1,6 @@
+using GarageApp.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace GarageApp
 {
     public class Program
@@ -5,9 +8,19 @@ namespace GarageApp
         public static void Main(string[] args)
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+            string connectionString = GetConnectionString(builder);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            /*
+               Register GarageAppDbContext in ASP.NET Core ServiceCollection
+               This allows ASP.NET Core to instantiate DbContext with configured ConnectionString and pass it anywhere in the application through Dependency Injection (DI)
+             */
+            builder.Services.AddDbContext<GarageAppDbContext>(opt =>
+            {
+                opt.UseSqlServer(connectionString);
+            });
 
             WebApplication app = builder.Build();
 
@@ -45,6 +58,21 @@ namespace GarageApp
                 .WithStaticAssets();
 
             app.Run();
+        }
+
+        private static string GetConnectionString(IHostApplicationBuilder builder)
+        {
+            string? connectionString = builder.Configuration
+                .GetConnectionString("DefaultConnection");
+
+            if (String.IsNullOrWhiteSpace(connectionString))
+            {
+                connectionString = builder.Configuration
+                    .GetConnectionString("DefaultConnection")
+                                   ?? throw new InvalidOperationException("Default connection string is not configured");
+            }
+
+            return connectionString;
         }
     }
 }

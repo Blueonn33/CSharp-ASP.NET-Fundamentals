@@ -16,13 +16,15 @@ namespace GarageApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            // URL Path is: domain/Garage/Index
+            // View Path is: Views/Garage/Index.cshtml
             IEnumerable<Garage> allGarages = _dbContext.Garages
                 .OrderBy(g => g.Name)
                 .ThenBy(g => g.Location)
                 .Take(25)
                 .ToArray();
 
-            return View();
+            return View(allGarages);
         }
     }
 }

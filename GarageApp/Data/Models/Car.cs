@@ -1,5 +1,6 @@
 ﻿using GarageApp.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static GarageApp.Common.EntityValidation;
 
 namespace GarageApp.Data.Models
@@ -28,11 +29,13 @@ namespace GarageApp.Data.Models
             get; set;
         } = null!;
 
+        [Range(CarProductionMonthMinValue, CarProductionMonthMaxValue)]
         public int? ProductionMonth
         {
             get; set;
         }
 
+        [Range(CarYearMinValue, 2100)]
         public int Year
         {
             get; set;
@@ -48,6 +51,7 @@ namespace GarageApp.Data.Models
             get; set;
         }
 
+        [ForeignKey(nameof(Garage))]
         public int GarageId
         {
             get; set;

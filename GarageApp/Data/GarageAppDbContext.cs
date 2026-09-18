@@ -12,5 +12,12 @@ namespace GarageApp.Data
 
         public virtual DbSet<Car> Cars { get; set; } = null!;
         public virtual DbSet<Garage> Garages { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(GarageAppDbContext).Assembly);
+        }
     }
 }

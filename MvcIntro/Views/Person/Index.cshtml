@@ -1,0 +1,21 @@
+﻿@model PersonViewModel;
+@{
+    ViewData["Title"] = "Person details";
+}
+
+<h2 class="mb-5">@ViewData["Title"]</h2>
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">ID</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+        <dt class="col-sm-2">First name</dt>
+        <dd class="col-sm-10">@Model.FirstName</dd>
+        <dt class="col-sm-2">Last name</dt>
+        <dd class="col-sm-10">@Model.LastName</dd>
+        <dt class="col-sm-2">Age</dt>
+        <dd class="col-sm-10">@Model.Age</dd>
+    </dl>
+</div>

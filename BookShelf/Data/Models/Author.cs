@@ -22,5 +22,13 @@ namespace BookShelf.Data.Models
         {
             get; set;
         }
+
+        // HashSet is used for searching
+        // List is used for adding
+        public virtual ICollection<Book> Books
+        {
+            get;
+            set;
+        } = new HashSet<Book>();
     }
 }

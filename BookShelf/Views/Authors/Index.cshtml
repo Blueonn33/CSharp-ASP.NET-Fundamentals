@@ -1,0 +1,34 @@
+﻿@using Microsoft.IdentityModel.Tokens
+@model IEnumerable<Author>
+@{
+    ViewData["Title"] = "Authors";
+}
+
+<h1 class="mb-3">Authors</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th style="width:140px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var author in Model)
+        {
+            <tr>
+                <td>@author.Name</td>
+                <td>@(author.Country != null ? author.Country : '-')</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary"
+                       asp-controller="Authors"
+                       asp-action="Details"
+                       asp-route-id="@author.Id">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

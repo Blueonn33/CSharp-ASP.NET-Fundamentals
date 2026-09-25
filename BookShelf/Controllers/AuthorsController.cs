@@ -1,6 +1,7 @@
 ﻿using BookShelf.Data;
 using BookShelf.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookShelf.Controllers
 {
@@ -25,14 +26,36 @@ namespace BookShelf.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Author> allAuthorsWithBooks = _dbContext.Authors
+            IEnumerable<Author> allAuthors = _dbContext.Authors
                 .OrderBy(a => a.Name)
                 .ThenBy(a => a.Country)
                 .ThenBy(a => a.Id)
                 .Take(10)
                 .ToArray();
 
-            return View(allAuthorsWithBooks);
+            /* Typed data passing to View */
+            return View(allAuthors);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (!id.HasValue || id.Value <= 0)
+            {
+                return BadRequest("There was something wrong");
+            }
+
+            Author? authorWithBooks = _dbContext.Authors
+                .Include(a => a.Books)
+                .SingleOrDefault(a => a.Id == id);
+
+            if (authorWithBooks == null)
+            {
+                // Author not found
+                return NotFound("Author could not be found");
+            }
+
+            return View(authorWithBooks);
         }
     }
 }

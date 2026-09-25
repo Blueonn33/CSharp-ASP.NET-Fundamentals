@@ -1,5 +1,4 @@
-﻿@using Microsoft.IdentityModel.Tokens
-@model IEnumerable<Author>
+﻿@model IEnumerable<Author>
 @{
     ViewData["Title"] = "Authors";
 }
@@ -19,7 +18,7 @@
         {
             <tr>
                 <td>@author.Name</td>
-                <td>@(author.Country != null ? author.Country : '-')</td>
+                <td>@(author.Country ?? "-")</td>
                 <td>
                     <a class="btn btn-sm btn-outline-primary"
                        asp-controller="Authors"

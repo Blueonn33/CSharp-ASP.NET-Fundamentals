@@ -17,5 +17,24 @@ namespace MvcIntro.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var model = new PersonViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Create(PersonViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Save the new person to the database (not implemented) 
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
+        }
     }
 }

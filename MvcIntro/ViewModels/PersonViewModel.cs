@@ -11,19 +11,19 @@ namespace MvcIntro.ViewModels
 
         [Required]
         [StringLength(50, MinimumLength = 5)]
-        public required string FirstName
+        public string FirstName
         {
             get;
             set;
-        }
+        } = null!;
 
         [Required]
         [StringLength(50, MinimumLength = 5)]
-        public required string LastName
+        public string LastName
         {
             get;
             set;
-        }
+        } = null!;
 
         [Required]
         [Range(3, 100)]

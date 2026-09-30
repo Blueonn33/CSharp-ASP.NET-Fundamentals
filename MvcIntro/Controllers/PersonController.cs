@@ -28,6 +28,8 @@ namespace MvcIntro.Controllers
         [HttpPost]
         public IActionResult Create(PersonViewModel model)
         {
+            //ModelState.AddModelError("Age", "Възрастта трябва да е между 3 и 100");
+
             if (ModelState.IsValid)
             {
                 // Save the new person to the database (not implemented) 

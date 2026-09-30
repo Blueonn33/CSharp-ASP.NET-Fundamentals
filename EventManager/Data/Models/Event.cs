@@ -53,7 +53,7 @@ namespace EventManager.Data.Models
             set;
         } = null!;
 
-        public virtual ICollection<Registration> Registrations
+        public virtual ICollection<Registration> Participants
         {
             get; set;
         } = new List<Registration>();

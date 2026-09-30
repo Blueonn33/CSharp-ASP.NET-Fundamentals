@@ -17,6 +17,7 @@
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control"/>
+                @* Изкарва валидация за конкретното property *@
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
 
@@ -41,3 +42,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

@@ -1,4 +1,4 @@
-using EventManager.Models;
+using EventManager.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

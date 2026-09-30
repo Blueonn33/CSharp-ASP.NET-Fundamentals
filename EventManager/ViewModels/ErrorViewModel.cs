@@ -1,4 +1,4 @@
-namespace EventManager.Models
+namespace EventManager.ViewModels
 {
     public class ErrorViewModel
     {

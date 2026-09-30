@@ -8,6 +8,8 @@
             public const int TitleMaxLength = 120;
 
             public const int DescriptionMaxLength = 700;
+            public const int MaxParticipantsMinValue = 1;
+            public const int MaxParticipantsMaxValue = 10000;
         }
 
         public static class Category

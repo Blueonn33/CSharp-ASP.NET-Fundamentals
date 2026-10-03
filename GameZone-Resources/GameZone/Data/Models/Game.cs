@@ -1,32 +1,47 @@
-﻿using GameZone.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static GameZone.Common.ValidationConstants;
 
 namespace GameZone.Data.Models
 {
     public class Game
     {
         [Key]
-        public int Id { get; set; }
+        public int Id
+        {
+            get; set;
+        }
 
         [Required]
-        public string Title { get; set; } = string.Empty;
+        [StringLength(GameTitleMaxLength, MinimumLength = GameTitleMinLength)]
+        public string Title { get; set; } = null!;
 
         [Required]
-        public string Description { get; set; } = string.Empty;
+        [StringLength(GameDescriptionMaxLength, MinimumLength = GameDescriptionMinLength)]
+        public string Description { get; set; } = null!;
 
-        public string? ImageUrl { get; set; }
+        [MaxLength(GameImageUrlMaxLength)]
+        public string? ImageUrl
+        {
+            get; set;
+        }
 
         [Required]
-        public string PublisherName { get; set; } = string.Empty;
+        [StringLength(GamePublisherMaxLength, MinimumLength = GamePublisherMinLength)]
+        public string PublisherName { get; set; } = null!;
 
         [Required]
-        public DateTime ReleasedOn { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime ReleasedOn
+        {
+            get; set;
+        }
 
-        [Required]
-        public int GenreId { get; set; }
+        public int GenreId
+        {
+            get; set;
+        }
 
-        [ForeignKey(nameof(GenreId))]
-        public Genre Genre { get; set; } = null!;
+        public virtual Genre Genre { get; set; } = null!;
     }
 }

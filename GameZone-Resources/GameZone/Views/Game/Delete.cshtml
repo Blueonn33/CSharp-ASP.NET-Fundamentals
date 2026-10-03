@@ -1,8 +1,9 @@
-﻿@* @{
+﻿@model GameDeleteViewModel
+@{
     ViewBag.Title = "Last Hall";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center">Last Hall</h2>
 <hr />
 
 <div class="row justify-content-center">
@@ -18,7 +19,7 @@
 
             <div class="card-footer text-center">
                 <form asp-action="Delete" method="post">
-                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="@Model.Id" />
 
                     <button type="submit" class="btn btn-danger me-2">
                         Confirm Delete
@@ -32,4 +33,3 @@
         </div>
     </div>
 </div>
- *@

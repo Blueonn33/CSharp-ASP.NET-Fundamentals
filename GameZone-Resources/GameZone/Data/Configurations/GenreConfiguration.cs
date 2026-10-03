@@ -18,6 +18,9 @@ namespace GameZone.Data.Configurations
 
         public void Configure(EntityTypeBuilder<Genre> builder)
         {
+            builder.HasIndex(g => g.Name)
+                .IsUnique();
+
             builder.HasMany(g => g.Games)
                    .WithOne(gm => gm.Genre)
                    .HasForeignKey(gm => gm.GenreId)

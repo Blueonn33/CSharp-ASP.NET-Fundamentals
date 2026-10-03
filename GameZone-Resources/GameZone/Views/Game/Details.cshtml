@@ -1,8 +1,9 @@
-﻿@* @{
+﻿@model GameDetailsViewModel
+@{
     ViewBag.Title = "Hall of Details";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center">Hall of Details</h2>
 <hr />
 
 <div class="row">
@@ -19,7 +20,7 @@
         <div class="card-body">
             <h5 class="card-title">@Model.Title</h5>
             <p class="card-text">@Model.Description</p>
-            <p class="card-text"><small class="text-muted">@Model.Genre</small></p>
+            <p class="card-text"><small class="text-muted">@Model.GenreName</small></p>
             <p class="card-text"><small class="text-muted">@Model.ReleasedOn</small></p>
             <p class="card-text"><small class="text-muted">Publisher: @Model.Publisher</small></p>
         </div>
@@ -34,8 +35,3 @@
            class="btn btn-danger btn-rounded mb-2 w-100 p-3 fw-bold">Delete</a>
     </div>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
- *@

@@ -1,14 +1,15 @@
-﻿@* @{
+﻿@model GameInputModel
+@{
     ViewBag.Title = "Blast Game";
-    var today = DateTime.Now.ToString("yyyy-MM-dd");
+    SelectList genresDropDownItems = new SelectList(Model.Genres, "Id", "Name");
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center">Blast Game</h2>
 <hr />
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="Add" method="post">
+        <form asp-controller="Game" asp-action="Add" method="post">
             <div class="mb-3">
                 <label asp-for="Title" class="form-label-add-edit">Game Title</label>
                 <input asp-for="Title" class="form-control" aria-required="true" />
@@ -37,15 +38,14 @@
                 <label asp-for="ReleasedOn" class="form-label-add-edit">Released On</label>
                 <input asp-for="ReleasedOn"
                        class="form-control"
-                       aria-required="true"
-                       value="@(string.IsNullOrEmpty(Model.ReleasedOn) ? today : Model.ReleasedOn)" />
+                       aria-required="true" />
                 <span asp-validation-for="ReleasedOn" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="GenreId" class="form-label-add-edit">Select Genre</label>
                 <select asp-for="GenreId" class="form-control" aria-required="true"
-                        asp-items="@(new SelectList(Model.Genres, "Id", "Name"))">
+                        asp-items="genresDropDownItems">
                     <option value="">Select Genre...</option>
                 </select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
@@ -62,4 +62,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
- *@

@@ -1,3 +1,6 @@
+using GameZone.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace GameZone
 {
     public class Program
@@ -11,6 +14,11 @@ namespace GameZone
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+            builder.Services.AddDbContext<GameZoneDbContext>(opt =>
+            {
+                opt.UseSqlServer(connectionString);
+            });
 
             builder.Services.AddControllersWithViews();
 

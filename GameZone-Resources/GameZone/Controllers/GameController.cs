@@ -94,16 +94,191 @@ namespace GameZone.Controllers
                     GenreId = inputModel.GenreId
                 };
 
-                _dbContext.Games.Add(new Game());
+                _dbContext.Games.Add(newGame);
                 _dbContext.SaveChanges();
+
+                TempData["Success"] = "Game added successfully";
             }
             catch (Exception e)
             {
                 _logger.LogCritical("Error occurred while saving valid Game data! Check logs");
 
                 TempData["Error"] = "Unexpected error occured while saving your data";
-                return RedirectToAction(nameof(All));
             }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public IActionResult Edit([FromRoute] int? id)
+        {
+            if (!id.HasValue || id.Value <= 0)
+            {
+                return BadRequest("There was an error with your request");
+            }
+
+            GameInputModel? editingGame = _dbContext.Games
+                .Where(g => g.Id == id.Value)
+                .Select(g => new GameInputModel()
+                {
+                    Title = g.Title,
+                    ImageUrl = g.ImageUrl,
+                    Description = g.Description,
+                    PublisherName = g.PublisherName,
+                    ReleasedOn = g.ReleasedOn,
+                    GenreId = g.GenreId
+                })
+                .SingleOrDefault();
+
+            if (editingGame == null)
+            {
+                return NotFound("Requested game was not found");
+            }
+
+            editingGame.Genres = LoadAllGenresDropDownItems();
+
+            return View(editingGame);
+        }
+
+        [HttpPost]
+        public IActionResult Edit([FromRoute] int? id, [FromForm] GameInputModel inputModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                inputModel.Genres = LoadAllGenresDropDownItems();
+
+                return View(inputModel);
+            }
+
+            if (!id.HasValue || id.Value <= 0)
+            {
+                return BadRequest("There was an error with your request");
+            }
+
+            bool genreExists = _dbContext.Genres
+                .Any(g => g.Id == inputModel.GenreId);
+
+            if (!genreExists)
+            {
+                ModelState.AddModelError(nameof(GameInputModel.GenreId), "Invalid genre is selected");
+                inputModel.Genres = LoadAllGenresDropDownItems();
+
+                return View(inputModel);
+            }
+
+            Game? editingGame = _dbContext.Games.Find(id);
+
+            if (editingGame == null)
+            {
+                return NotFound("Requested game was not found");
+            }
+
+            try
+            {
+                editingGame.Title = inputModel.Title;
+                editingGame.Description = inputModel.Description;
+                editingGame.ImageUrl = inputModel.ImageUrl;
+                editingGame.PublisherName = inputModel.PublisherName;
+                editingGame.ReleasedOn = inputModel.ReleasedOn;
+                editingGame.GenreId = editingGame.GenreId;
+
+                _dbContext.SaveChanges();
+
+                TempData["Success"] = "Game edited successfully";
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical("Error occurred while saving valid Game data! Check logs");
+
+                TempData["Error"] = "Unexpected error occured while saving your data";
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public IActionResult Delete([FromRoute] int? id)
+        {
+            if (!id.HasValue || id.Value <= 0)
+            {
+                return BadRequest("There was an error with your request");
+            }
+
+            GameDeleteViewModel? deletingGame = _dbContext.Games
+                .Select(g => new GameDeleteViewModel()
+                {
+                    Id = g.Id,
+                    Title = g.Title
+                })
+                .SingleOrDefault(g => g.Id == id);
+
+            if (deletingGame == null)
+            {
+                return NotFound("Requested game was not found");
+            }
+
+            return View(deletingGame);
+        }
+
+        [HttpPost]
+        public IActionResult Delete([FromRoute] int? id, GameDeleteViewModel inputModel)
+        {
+            if (!id.HasValue || id.Value <= 0 || id.Value != inputModel.Id)
+            {
+                return BadRequest("There was an error with your request");
+            }
+
+            Game? deletingGame = _dbContext.Games.Find(id);
+
+            if (deletingGame == null)
+            {
+                return NotFound("Requested game was not found");
+            }
+
+            try
+            {
+                _dbContext.Games.Remove(deletingGame);
+                _dbContext.SaveChanges();
+
+                TempData["Success"] = "Game deleted successfully";
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical("Error occurred while deleting game! Check logs");
+
+                TempData["Error"] = "Unexpected error occured while deleting";
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public IActionResult Details([FromRoute] int? id)
+        {
+            if (!id.HasValue || id.Value <= 0)
+            {
+                return BadRequest("There was an error with your request");
+            }
+
+            GameDetailsViewModel? gameDetails = _dbContext.Games
+                .Select(g => new GameDetailsViewModel()
+                {
+                    Id = g.Id,
+                    Title = g.Title,
+                    ImageUrl = g.ImageUrl,
+                    Description = g.Description,
+                    Publisher = g.PublisherName,
+                    GenreName = g.Genre.Name,
+                    ReleasedOn = g.ReleasedOn.ToString(ApplicationDateFormat)
+                })
+                .SingleOrDefault(g => g.Id == id);
+
+            if (gameDetails == null)
+            {
+                return NotFound("Requested game was not found");
+            }
+
+            return View(gameDetails);
         }
 
         private IEnumerable<GenreDropDownViewModel> LoadAllGenresDropDownItems()

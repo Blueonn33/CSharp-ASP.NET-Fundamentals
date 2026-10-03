@@ -1,14 +1,13 @@
-using GameZone.Data;
-
 namespace GameZone
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+            string connectionString = builder.Configuration
+                                          .GetConnectionString("SqlServerDev")
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();

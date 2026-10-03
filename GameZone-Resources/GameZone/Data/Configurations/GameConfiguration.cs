@@ -8,17 +8,6 @@ namespace GameZone.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Game> builder)
         {
-            builder.HasKey(g => g.Id);
-
-            builder.Property(g => g.Title)
-                   .IsRequired();
-
-            builder.Property(g => g.Description)
-                   .IsRequired();
-
-            builder.Property(g => g.PublisherName)
-                   .IsRequired();
-
             builder.HasData(
                 new Game
                 {

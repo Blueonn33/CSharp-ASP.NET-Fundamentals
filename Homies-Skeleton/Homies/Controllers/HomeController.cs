@@ -1,4 +1,4 @@
-﻿using Homies.Models;
+﻿using Homies.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

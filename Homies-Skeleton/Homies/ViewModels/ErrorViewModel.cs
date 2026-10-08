@@ -1,4 +1,4 @@
-namespace Homies.ViewModel
+namespace Homies.ViewModels
 {
     public class ErrorViewModel
     {

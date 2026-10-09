@@ -3,13 +3,9 @@
 
 using Homies.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Encodings.Web;
 
 namespace Homies.Areas.Identity.Pages.Account;
 
@@ -109,35 +105,10 @@ public class RegisterModel : PageModel
             {
                 _logger.LogInformation("User created a new account with password.");
 
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmail",
-                    pageHandler: null,
-                    values: new
-                    {
-                        area = "Identity",
-                        userId = userId,
-                        code = code,
-                        returnUrl = returnUrl
-                    },
-                    protocol: Request.Scheme)!;
-
-                if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                {
-                    return RedirectToPage("RegisterConfirmation", new
-                    {
-                        email = Input.Email,
-                        returnUrl = returnUrl
-                    });
-                }
-                else
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
-                }
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect(returnUrl);
             }
+
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);

@@ -1,5 +1,4 @@
 using Homies.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +12,7 @@ builder.Services.AddDbContext<HomiesDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     {
         // Dev Only options
         // TODO: Use appsettings.json to store different options depending on the application environment

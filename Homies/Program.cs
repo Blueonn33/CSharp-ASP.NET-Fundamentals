@@ -13,7 +13,18 @@ builder.Services.AddDbContext<HomiesDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+    {
+        // Dev Only options
+        // TODO: Use appsettings.json to store different options depending on the application environment
+        options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 3;
+    })
     .AddEntityFrameworkStores<HomiesDbContext>();
 builder.Services.AddControllersWithViews();
 

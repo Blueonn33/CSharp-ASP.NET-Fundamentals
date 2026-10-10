@@ -17,7 +17,7 @@ namespace Homies.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.31")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -63,6 +63,41 @@ namespace Homies.Data.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2025, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Help care for animals at the local shelter.",
+                            End = new DateTime(2025, 2, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Animal Shelter",
+                            OrganizerId = "sample-organizer",
+                            Start = new DateTime(2025, 2, 1, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2025, 1, 2, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Join us for an afternoon of board games.",
+                            End = new DateTime(2025, 2, 8, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Board Games",
+                            OrganizerId = "sample-organizer",
+                            Start = new DateTime(2025, 2, 8, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2025, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Discuss ideas for improving our community.",
+                            End = new DateTime(2025, 2, 15, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Community Talk",
+                            OrganizerId = "sample-organizer",
+                            Start = new DateTime(2025, 2, 15, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            TypeId = 3
+                        });
                 });
 
             modelBuilder.Entity("Homies.Data.Models.EventParticipant", b =>
@@ -184,6 +219,11 @@ namespace Homies.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -235,6 +275,25 @@ namespace Homies.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator().HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "sample-organizer",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6fe43e09-8151-4ff0-9fb8-f10dff8178ba",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "SAMPLE-ORGANIZER",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "sample-organizer-security-stamp",
+                            TwoFactorEnabled = false,
+                            UserName = "sample-organizer"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -320,6 +379,13 @@ namespace Homies.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Homies.Data.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Homies.Data.Models.Event", b =>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Homies.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDbDesignAndTypeSeed : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,7 @@ namespace Homies.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -227,6 +228,11 @@ namespace Homies.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "sample-organizer", 0, "6fe43e09-8151-4ff0-9fb8-f10dff8178ba", "IdentityUser", null, false, false, null, null, "SAMPLE-ORGANIZER", null, null, false, "sample-organizer-security-stamp", false, "sample-organizer" });
+
+            migrationBuilder.InsertData(
                 table: "Types",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -235,6 +241,16 @@ namespace Homies.Data.Migrations
                     { 2, "Fun" },
                     { 3, "Discussion" },
                     { 4, "Work" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Events",
+                columns: new[] { "Id", "CreatedOn", "Description", "End", "Name", "OrganizerId", "Start", "TypeId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified), "Help care for animals at the local shelter.", new DateTime(2025, 2, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), "Animal Shelter", "sample-organizer", new DateTime(2025, 2, 1, 10, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 2, new DateTime(2025, 1, 2, 9, 0, 0, 0, DateTimeKind.Unspecified), "Join us for an afternoon of board games.", new DateTime(2025, 2, 8, 17, 0, 0, 0, DateTimeKind.Unspecified), "Board Games", "sample-organizer", new DateTime(2025, 2, 8, 14, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 3, new DateTime(2025, 1, 3, 9, 0, 0, 0, DateTimeKind.Unspecified), "Discuss ideas for improving our community.", new DateTime(2025, 2, 15, 18, 0, 0, 0, DateTimeKind.Unspecified), "Community Talk", "sample-organizer", new DateTime(2025, 2, 15, 16, 0, 0, 0, DateTimeKind.Unspecified), 3 }
                 });
 
             migrationBuilder.CreateIndex(

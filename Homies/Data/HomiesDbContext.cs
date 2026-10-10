@@ -1,4 +1,5 @@
 ﻿using Homies.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Type = Homies.Data.Models.Type;
@@ -29,6 +30,11 @@ namespace Homies.Data
             get;
             set;
         } = null!;
+
+        public virtual DbSet<ApplicationUser> ApplicationUsers
+        {
+            get; set;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,6 +69,49 @@ namespace Homies.Data
                 {
                     Id = 4,
                     Name = "Work"
+                });
+
+            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+            {
+                Id = "sample-organizer",
+                UserName = "sample-organizer",
+                NormalizedUserName = "SAMPLE-ORGANIZER",
+                SecurityStamp = "sample-organizer-security-stamp"
+            });
+
+            modelBuilder.Entity<Event>().HasData(
+                new Event
+                {
+                    Id = 1,
+                    Name = "Animal Shelter",
+                    Description = "Help care for animals at the local shelter.",
+                    OrganizerId = "sample-organizer",
+                    CreatedOn = new DateTime(2025, 1, 1, 9, 0, 0),
+                    Start = new DateTime(2025, 2, 1, 10, 0, 0),
+                    End = new DateTime(2025, 2, 1, 12, 0, 0),
+                    TypeId = 1
+                },
+                new Event
+                {
+                    Id = 2,
+                    Name = "Board Games",
+                    Description = "Join us for an afternoon of board games.",
+                    OrganizerId = "sample-organizer",
+                    CreatedOn = new DateTime(2025, 1, 2, 9, 0, 0),
+                    Start = new DateTime(2025, 2, 8, 14, 0, 0),
+                    End = new DateTime(2025, 2, 8, 17, 0, 0),
+                    TypeId = 2
+                },
+                new Event
+                {
+                    Id = 3,
+                    Name = "Community Talk",
+                    Description = "Discuss ideas for improving our community.",
+                    OrganizerId = "sample-organizer",
+                    CreatedOn = new DateTime(2025, 1, 3, 9, 0, 0),
+                    Start = new DateTime(2025, 2, 15, 16, 0, 0),
+                    End = new DateTime(2025, 2, 15, 18, 0, 0),
+                    TypeId = 3
                 });
         }
     }

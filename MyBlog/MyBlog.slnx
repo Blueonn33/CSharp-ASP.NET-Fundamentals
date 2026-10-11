@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="../MyBlog.Data/MyBlog.Data.csproj" />
+  <Project Path="../MyBlog.Services/MyBlog.Services.csproj" />
   <Project Path="MyBlog.csproj" />
 </Solution>

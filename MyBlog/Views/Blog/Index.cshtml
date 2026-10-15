@@ -1,0 +1,29 @@
+﻿@model IEnumerable<BlogServiceModel>
+
+<div>
+    <a asp-action="Create">Create blog</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var blog in Model)
+        {
+            <tr>
+                <td>@blog.Title</td>
+                <td>@blog.Description</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = blog.Id})
+                    @Html.ActionLink("Details", "Details", new {id = blog.Id})
+                    @Html.ActionLink("Delete", "Delete", new {id = blog.Id})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Data;
+using MyBlog.Data.Common;
 using MyBlog.Services.Contracts;
 using MyBlog.Services.Services;
 
@@ -23,6 +24,7 @@ namespace MyBlog
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IBlogService, BlogService>();
+            builder.Services.AddScoped<IRepository, Repository>();
 
             var app = builder.Build();
 

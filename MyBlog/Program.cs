@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Data;
+using MyBlog.Services.Contracts;
 
 namespace MyBlog
 {
@@ -19,6 +20,8 @@ namespace MyBlog
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IBlogService, IBlogService>();
 
             var app = builder.Build();
 

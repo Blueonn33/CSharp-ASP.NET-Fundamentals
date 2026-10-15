@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Data;
 using MyBlog.Services.Contracts;
+using MyBlog.Services.Services;
 
 namespace MyBlog
 {
@@ -21,7 +22,7 @@ namespace MyBlog
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<IBlogService, IBlogService>();
+            builder.Services.AddScoped<IBlogService, BlogService>();
 
             var app = builder.Build();
 

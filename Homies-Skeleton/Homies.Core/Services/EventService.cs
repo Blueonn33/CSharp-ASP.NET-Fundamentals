@@ -98,5 +98,20 @@ namespace Homies.Services.Core.Services
 
             return true;
         }
+
+        public IEnumerable<EventShortViewModel> GetJoinedEvents(string currentUserId)
+        {
+            return dbContext
+                .EventsParticipants
+                .Where(ep => ep.HelperId == currentUserId)
+                .Select(ep => new EventShortViewModel()
+                {
+                    Id = ep.Event.Id,
+                    Name = ep.Event.Name,
+                    Start = ep.Event.Start.ToString(DateTimeFormat),
+                    Type = ep.Event.Type.Name
+                })
+                .ToList();
+        }
     }
 }

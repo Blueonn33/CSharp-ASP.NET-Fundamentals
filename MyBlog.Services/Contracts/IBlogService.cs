@@ -4,8 +4,8 @@ namespace MyBlog.Services.Contracts
 {
     public interface IBlogService
     {
-        void CreateBlog(BlogServiceModel model);
+        Task CreateBlogAsync(BlogServiceModel model);
 
-        IEnumerable<BlogServiceModel> GetAllBlogs();
+        Task<IEnumerable<BlogServiceModel>> GetAllBlogsAsync();
     }
 }

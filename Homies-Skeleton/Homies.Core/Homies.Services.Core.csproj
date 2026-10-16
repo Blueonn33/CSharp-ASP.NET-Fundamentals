@@ -12,4 +12,9 @@
     <ProjectReference Include="..\Homies.GCommon\Homies.GCommon.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

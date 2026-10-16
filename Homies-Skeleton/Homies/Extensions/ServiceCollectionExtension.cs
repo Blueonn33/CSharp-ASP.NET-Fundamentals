@@ -1,7 +1,7 @@
 ﻿using Homies.Services.Core.Contracts;
 using Homies.Services.Core.Services;
 
-namespace Homies.Web.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
     {

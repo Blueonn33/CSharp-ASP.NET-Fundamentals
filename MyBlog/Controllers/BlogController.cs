@@ -14,9 +14,9 @@ namespace MyBlog.Controllers
         //}
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var blogs = blogService.GetAllBlogs();
+            var blogs = await blogService.GetAllBlogsAsync();
 
             return View(blogs);
         }
@@ -31,14 +31,14 @@ namespace MyBlog.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(BlogServiceModel model)
+        public async Task<IActionResult> Create(BlogServiceModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            blogService.CreateBlog(model);
+            await blogService.CreateBlogAsync(model);
 
             return RedirectToAction(nameof(Index));
         }

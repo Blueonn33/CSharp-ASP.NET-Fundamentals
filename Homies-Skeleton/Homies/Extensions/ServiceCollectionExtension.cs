@@ -1,6 +1,7 @@
 ﻿using Homies.Data;
 using Homies.Services.Core.Contracts;
 using Homies.Services.Core.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -23,6 +24,18 @@ namespace Microsoft.Extensions.DependencyInjection
             });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            return services;
+        }
+
+        public static IServiceCollection AddApplicationIdentity(this IServiceCollection services)
+        {
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<HomiesDbContext>();
 
             return services;
         }

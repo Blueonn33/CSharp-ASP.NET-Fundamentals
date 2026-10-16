@@ -82,7 +82,14 @@ namespace Homies.Web.Controllers
 
         public IActionResult Details(int id)
         {
+            var eventToDisplay = eventService.GetEventDetails(id);
 
+            if (eventToDisplay == null)
+            {
+                return BadRequest();
+            }
+
+            return View(eventToDisplay);
         }
 
         private string GetUserId()

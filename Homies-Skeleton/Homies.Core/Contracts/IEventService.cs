@@ -16,6 +16,6 @@ namespace Homies.Services.Core.Contracts
 
         IEnumerable<EventShortViewModel> GetJoinedEvents(string currentUserId);
 
-        EventDetailsViewModel GetEventDetails(int id);
+        EventDetailsViewModel? GetEventDetails(int id);
     }
 }

@@ -114,7 +114,7 @@ namespace Homies.Services.Core.Services
                 .ToList();
         }
 
-        public EventDetailsViewModel GetEventDetails(int id)
+        public EventDetailsViewModel? GetEventDetails(int id)
         {
             return dbContext.Events
                 .Where(e => e.Id == id)

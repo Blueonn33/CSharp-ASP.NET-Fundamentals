@@ -2,8 +2,9 @@
 {
     public interface IRepository
     {
+        // IQueryable could not be async
         IQueryable<T> All<T>() where T : class;
-        void Add<T>(T entity) where T : class;
-        int SaveChanges();
+        Task AddAsync<T>(T entity) where T : class;
+        Task<int> SaveChangesAsync();
     }
 }

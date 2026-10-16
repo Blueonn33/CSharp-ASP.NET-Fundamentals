@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Homies.DTO.Type;
+using System.ComponentModel.DataAnnotations;
 using static Homies.GCommon.Constants.EntityValidation;
 
 namespace Homies.DTO.Event
@@ -12,5 +13,7 @@ namespace Homies.DTO.Event
         [Required]
         [StringLength(EventDescriptionMaxLength, MinimumLength = EventDescriptionMinLength, ErrorMessage = "Description must be between {2} and {1} characters")]
         public string Description { get; set; } = null!;
+
+        public IEnumerable<TypeViewModel> Types { get; set; } = new List<TypeViewModel>();
     }
 }

@@ -90,13 +90,11 @@ namespace Homies.Services.Core.Services
             var entry = dbContext.EventsParticipants
                 .FirstOrDefault(e => e.HelperId == currentUserId && e.EventId == eventId);
 
-            if (entry == null)
+            if (entry != null)
             {
-                return false;
+                dbContext.EventsParticipants.Remove(entry);
+                dbContext.SaveChanges();
             }
-
-            dbContext.EventsParticipants.Remove(entry);
-            dbContext.SaveChanges();
 
             return true;
         }

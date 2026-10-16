@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homies.Data.Models", "Homie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homies.GCommon", "Homies.GCommon\Homies.GCommon.csproj", "{65F46DC3-A7AF-4C2B-BA0C-3108F315F7B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homies.Core", "Homies.Core\Homies.Core.csproj", "{E2F15EC9-FA3A-4042-A6F4-46104430D469}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{65F46DC3-A7AF-4C2B-BA0C-3108F315F7B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65F46DC3-A7AF-4C2B-BA0C-3108F315F7B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65F46DC3-A7AF-4C2B-BA0C-3108F315F7B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F15EC9-FA3A-4042-A6F4-46104430D469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F15EC9-FA3A-4042-A6F4-46104430D469}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F15EC9-FA3A-4042-A6F4-46104430D469}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F15EC9-FA3A-4042-A6F4-46104430D469}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

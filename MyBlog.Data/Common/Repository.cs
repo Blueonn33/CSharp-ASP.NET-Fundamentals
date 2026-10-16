@@ -14,14 +14,14 @@
             return _context.Set<T>();
         }
 
-        public void Add<T>(T entity) where T : class
+        public async Task AddAsync<T>(T entity) where T : class
         {
-            _context.Set<T>().Add(entity);
+            await _context.Set<T>().AddAsync(entity);
         }
 
-        public int SaveChanges()
+        public async Task<int> SaveChangesAsync()
         {
-            return _context.SaveChanges();
+            return await _context.SaveChangesAsync();
         }
     }
 }

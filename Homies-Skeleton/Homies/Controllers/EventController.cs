@@ -48,7 +48,19 @@ namespace Homies.Web.Controllers
 
         public IActionResult Join(int id)
         {
+            bool result = eventService.Join(id, GetUserId());
 
+            if (result == false)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Joined", "Event");
+        }
+
+        public IActionResult Joined()
+        {
+            return View();
         }
 
         private string GetUserId()

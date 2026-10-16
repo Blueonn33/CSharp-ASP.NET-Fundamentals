@@ -1,4 +1,5 @@
-﻿using MyBlog.Data.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using MyBlog.Data.Common;
 using MyBlog.Data.Models;
 using MyBlog.Services.Contracts;
 using MyBlog.Services.Models;
@@ -7,7 +8,7 @@ namespace MyBlog.Services.Services
 {
     public class BlogService(IRepository repository) : IBlogService
     {
-        public void CreateBlog(BlogServiceModel model)
+        public async Task CreateBlogAsync(BlogServiceModel model)
         {
             var entity = new Blog()
             {
@@ -15,20 +16,20 @@ namespace MyBlog.Services.Services
                 Description = model.Description
             };
 
-            repository.Add(entity);
-            repository.SaveChanges();
+            await repository.AddAsync(entity);
+            await repository.SaveChangesAsync();
         }
 
-        public IEnumerable<BlogServiceModel> GetAllBlogs()
+        public async Task<IEnumerable<BlogServiceModel>> GetAllBlogsAsync()
         {
-            return repository.All<Blog>()
+            return await repository.All<Blog>()
                 .Select(b => new BlogServiceModel()
                 {
                     Id = b.Id,
                     Title = b.Title,
                     Description = b.Description
-                });
-
+                })
+                .ToListAsync();
         }
     }
 }

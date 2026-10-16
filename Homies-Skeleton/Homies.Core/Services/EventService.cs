@@ -51,5 +51,30 @@ namespace Homies.Services.Core.Services
                 })
                 .ToList();
         }
+
+        public bool Join(int eventId, string currentUserId)
+        {
+            var eventToAdd = dbContext.Events
+                .Find(eventId);
+
+            if (eventToAdd == null)
+            {
+                return false;
+            }
+
+            var entry = new EventParticipant()
+            {
+                EventId = eventToAdd.Id,
+                HelperId = eventToAdd.OrganizerId
+            };
+
+            if (dbContext.EventsParticipants.Contains(entry) == false)
+            {
+                dbContext.EventsParticipants.Add(entry);
+                dbContext.SaveChanges();
+            }
+
+            return true;
+        }
     }
 }

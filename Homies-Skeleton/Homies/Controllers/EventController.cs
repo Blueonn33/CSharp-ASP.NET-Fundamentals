@@ -12,7 +12,9 @@ namespace Homies.Web.Controllers
         [HttpGet]
         public IActionResult All()
         {
-            return View();
+            var eventsToDisplay = eventService.GetAll();
+
+            return View(eventsToDisplay);
         }
 
         [HttpGet]
@@ -42,6 +44,11 @@ namespace Homies.Web.Controllers
             eventService.AddEvent(eventModel, userId);
 
             return RedirectToAction("All", "Event");
+        }
+
+        public IActionResult Join(int id)
+        {
+
         }
 
         private string GetUserId()

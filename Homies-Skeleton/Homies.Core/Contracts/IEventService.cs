@@ -9,5 +9,7 @@ namespace Homies.Services.Core.Contracts
         void AddEvent(EventInputModel eventModel, string currentUserId);
 
         IEnumerable<EventShortViewModel> GetAll();
+
+        bool Join(int eventId, string currentUserId);
     }
 }

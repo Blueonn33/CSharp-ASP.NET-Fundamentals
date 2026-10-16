@@ -46,6 +46,7 @@ namespace Homies.Web.Controllers
             return RedirectToAction("All", "Event");
         }
 
+        [HttpGet]
         public IActionResult Join(int id)
         {
             bool result = eventService.Join(id, GetUserId());
@@ -58,6 +59,20 @@ namespace Homies.Web.Controllers
             return RedirectToAction("Joined", "Event");
         }
 
+        [HttpGet]
+        public IActionResult Leave(int id)
+        {
+            bool result = eventService.Leave(id, GetUserId());
+
+            if (result == false)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("All", "Event");
+        }
+
+        [HttpGet]
         public IActionResult Joined()
         {
             return View();

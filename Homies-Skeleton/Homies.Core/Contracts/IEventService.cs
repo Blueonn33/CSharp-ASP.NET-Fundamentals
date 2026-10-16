@@ -7,5 +7,7 @@ namespace Homies.Services.Core.Contracts
         EventInputModel GetEventInputModel();
 
         void AddEvent(EventInputModel eventModel, string currentUserId);
+
+        IEnumerable<EventShortViewModel> GetAll();
     }
 }

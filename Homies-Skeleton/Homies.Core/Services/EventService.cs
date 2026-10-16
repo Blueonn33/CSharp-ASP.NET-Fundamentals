@@ -2,6 +2,7 @@
 using Homies.Data.Models;
 using Homies.DTO.Event;
 using Homies.Services.Core.Contracts;
+using static Homies.GCommon.Constants.ApplicationConstants;
 
 namespace Homies.Services.Core.Services
 {
@@ -35,6 +36,20 @@ namespace Homies.Services.Core.Services
 
             dbContext.Events.Add(eventToAdd);
             dbContext.SaveChanges();
+        }
+
+        public IEnumerable<EventShortViewModel> GetAll()
+        {
+            return dbContext.Events
+                .Select(e => new EventShortViewModel()
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Organizer = e.Organizer.UserName,
+                    Start = e.Start.ToString(DateTimeFormat),
+                    Type = e.Type.Name
+                })
+                .ToList();
         }
     }
 }

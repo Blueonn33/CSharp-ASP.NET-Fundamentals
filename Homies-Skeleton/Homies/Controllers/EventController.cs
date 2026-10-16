@@ -26,7 +26,9 @@ namespace Homies.Web.Controllers
         [HttpPost]
         public IActionResult Add(EventInputModel eventModel)
         {
-            if (!typeService.GetTypes().Any(e => e.Id == eventModel.TypeId))
+            if (typeService
+                    .GetTypes()
+                    .Any(e => e.Id == eventModel.TypeId) == false)
             {
                 ModelState.AddModelError(nameof(eventModel.TypeId), "Type does not exist");
             }

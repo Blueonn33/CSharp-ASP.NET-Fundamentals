@@ -1,17 +1,45 @@
-﻿using Homies.Services.Core.Contracts;
+﻿using Homies.DTO.Event;
+using Homies.Services.Core.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace Homies.Web.Controllers
 {
+    [Authorize]
     public class EventController(IEventService eventService, ITypeService typeService) : Controller
     {
+        [HttpGet]
+        public IActionResult All()
+        {
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
             var eventModel = eventService.GetEventInputModel();
 
             return View(eventModel);
+        }
+
+        [HttpPost]
+        public IActionResult Add(EventInputModel eventModel)
+        {
+            if (!typeService.GetTypes().Any(e => e.Id == eventModel.TypeId))
+            {
+                ModelState.AddModelError(nameof(eventModel.TypeId), "Type does not exist");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(eventModel);
+            }
+
+            string userId = GetUserId();
+            eventService.AddEvent(eventModel, userId);
+
+            return RedirectToAction("All", "Event");
         }
 
         private string GetUserId()

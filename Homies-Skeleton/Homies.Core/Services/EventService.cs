@@ -113,5 +113,23 @@ namespace Homies.Services.Core.Services
                 })
                 .ToList();
         }
+
+        public EventDetailsViewModel GetEventDetails(int id)
+        {
+            return dbContext.Events
+                .Where(e => e.Id == id)
+                .Select(e => new EventDetailsViewModel()
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Start = e.Start.ToString(DateTimeFormat),
+                    End = e.End.ToString(DateTimeFormat),
+                    Organizer = e.Organizer.UserName,
+                    Type = e.Type.Name,
+                    Description = e.Description,
+                    CreatedOn = e.CreatedOn.ToString(DateTimeFormat)
+                })
+                .FirstOrDefault();
+        }
     }
 }

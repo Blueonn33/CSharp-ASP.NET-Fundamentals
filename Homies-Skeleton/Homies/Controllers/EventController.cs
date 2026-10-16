@@ -75,7 +75,14 @@ namespace Homies.Web.Controllers
         [HttpGet]
         public IActionResult Joined()
         {
-            return View();
+            var userEvents = eventService.GetJoinedEvents(GetUserId());
+
+            return View(userEvents);
+        }
+
+        public IActionResult Details(int id)
+        {
+
         }
 
         private string GetUserId()

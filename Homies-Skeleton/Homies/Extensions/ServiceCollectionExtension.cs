@@ -22,6 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.UseSqlServer(connectionString);
             });
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             return services;
         }
     }

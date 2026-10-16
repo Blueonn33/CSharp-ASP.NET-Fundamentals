@@ -76,5 +76,29 @@ namespace Homies.Services.Core.Services
 
             return true;
         }
+
+        public bool Leave(int eventId, string currentUserId)
+        {
+            var eventToAdd = dbContext.Events
+                .Find(eventId);
+
+            if (eventToAdd == null)
+            {
+                return false;
+            }
+
+            var entry = dbContext.EventsParticipants
+                .FirstOrDefault(e => e.HelperId == currentUserId && e.EventId == eventId);
+
+            if (entry == null)
+            {
+                return false;
+            }
+
+            dbContext.EventsParticipants.Remove(entry);
+            dbContext.SaveChanges();
+
+            return true;
+        }
     }
 }

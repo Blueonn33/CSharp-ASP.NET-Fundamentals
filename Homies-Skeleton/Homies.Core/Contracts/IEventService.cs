@@ -11,5 +11,7 @@ namespace Homies.Services.Core.Contracts
         IEnumerable<EventShortViewModel> GetAll();
 
         bool Join(int eventId, string currentUserId);
+
+        bool Leave(int eventId, string currentUserId);
     }
 }

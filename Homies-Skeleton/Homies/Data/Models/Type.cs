@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static Homies.Common.EntityValidation;
+using static Homies.GCommon.Constants.EntityValidation;
 
 namespace Homies.Data.Models
 {

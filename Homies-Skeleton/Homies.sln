@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.9.12105.275 stable
+VisualStudioVersion = 18.9.12105.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homies.Web", "Homies\Homies.Web.csproj", "{6284C577-833D-4B62-994B-F748F2BE2305}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homies.GCommon", "Homies.GCommon\Homies.GCommon.csproj", "{65F46DC3-A7AF-4C2B-BA0C-3108F315F7B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homies.Services.Core", "Homies.Core\Homies.Services.Core.csproj", "{E2F15EC9-FA3A-4042-A6F4-46104430D469}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homies.DTO", "Homies.DTO\Homies.DTO.csproj", "{55D4AF8D-8E6B-48EC-8B2E-DF86CD755D42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E2F15EC9-FA3A-4042-A6F4-46104430D469}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2F15EC9-FA3A-4042-A6F4-46104430D469}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2F15EC9-FA3A-4042-A6F4-46104430D469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55D4AF8D-8E6B-48EC-8B2E-DF86CD755D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D4AF8D-8E6B-48EC-8B2E-DF86CD755D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D4AF8D-8E6B-48EC-8B2E-DF86CD755D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D4AF8D-8E6B-48EC-8B2E-DF86CD755D42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

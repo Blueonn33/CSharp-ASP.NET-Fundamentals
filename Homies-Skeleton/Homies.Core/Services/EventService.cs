@@ -131,5 +131,61 @@ namespace Homies.Services.Core.Services
                 })
                 .FirstOrDefault();
         }
+
+        public EventInputModel? GetEventForEdit(int id, string currentUserId)
+        {
+            var eventToEdit = dbContext.Events.Find(id);
+
+            if (eventToEdit == null)
+            {
+                return null;
+            }
+
+            if (currentUserId != eventToEdit.OrganizerId)
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+            EventInputModel eventModel = new EventInputModel()
+            {
+                Name = eventToEdit.Name,
+                Description = eventToEdit.Description,
+                Start = eventToEdit.Start,
+                End = eventToEdit.End,
+                TypeId = eventToEdit.TypeId,
+                Types = typeService.GetTypes()
+            };
+
+            return eventModel;
+        }
+
+        public bool EditEvent(int id, EventInputModel eventModel, string currentUserId)
+        {
+            var eventToEdit = dbContext.Events.Find(id);
+
+            if (eventToEdit == null)
+            {
+                return false;
+            }
+
+            if (currentUserId != eventToEdit.OrganizerId)
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+            if (typeService.GetTypes().Any(t => t.Id == eventModel.TypeId) == false)
+            {
+                throw new ArgumentException("Type does not exist");
+            }
+
+            eventToEdit.Name = eventModel.Name;
+            eventToEdit.Description = eventModel.Description;
+            eventToEdit.Start = eventModel.Start;
+            eventToEdit.End = eventModel.End;
+            eventToEdit.TypeId = eventModel.TypeId;
+
+            dbContext.SaveChanges();
+            return true;
+        }
     }
 }

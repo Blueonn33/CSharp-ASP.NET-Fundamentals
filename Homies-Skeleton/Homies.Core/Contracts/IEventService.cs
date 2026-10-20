@@ -17,5 +17,9 @@ namespace Homies.Services.Core.Contracts
         IEnumerable<EventShortViewModel> GetJoinedEvents(string currentUserId);
 
         EventDetailsViewModel? GetEventDetails(int id);
+
+        EventInputModel? GetEventForEdit(int id, string currentUserId);
+
+        bool EditEvent(int id, EventInputModel eventModel, string currentUserId);
     }
 }

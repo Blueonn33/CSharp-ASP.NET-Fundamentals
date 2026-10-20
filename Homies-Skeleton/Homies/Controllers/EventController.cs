@@ -116,7 +116,32 @@ namespace Homies.Web.Controllers
         [HttpPost]
         public IActionResult Edit(int id, EventInputModel model)
         {
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+            }
 
+            try
+            {
+                bool result = eventService.EditEvent(id, model, GetUserId());
+
+                if (result == false)
+                {
+                    return BadRequest();
+                }
+
+                return RedirectToAction("All", "Event");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+            catch (ArgumentException e)
+            {
+                ModelState.AddModelError(nameof(model.TypeId), e.Message);
+
+                return View(model);
+            }
         }
 
         private string GetUserId()

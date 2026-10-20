@@ -80,6 +80,7 @@ namespace Homies.Web.Controllers
             return View(userEvents);
         }
 
+        [HttpGet]
         public IActionResult Details(int id)
         {
             var eventToDisplay = eventService.GetEventDetails(id);
@@ -90,6 +91,32 @@ namespace Homies.Web.Controllers
             }
 
             return View(eventToDisplay);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            try
+            {
+                var eventToEdit = eventService.GetEventForEdit(id, GetUserId());
+
+                if (eventToEdit == null)
+                {
+                    return BadRequest();
+                }
+
+                return View(eventToEdit);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, EventInputModel model)
+        {
+
         }
 
         private string GetUserId()

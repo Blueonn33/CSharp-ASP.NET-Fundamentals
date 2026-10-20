@@ -18,7 +18,7 @@ namespace Homies.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
             var eventModel = eventService.GetEventInputModel();
 

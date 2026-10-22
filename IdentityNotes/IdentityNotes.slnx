@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../IdentityNotes.Common/IdentityNotes.Common.csproj" Id="5eac15d5-da50-4e32-aa56-26a6636c934d" />
   <Project Path="IdentityNotes.csproj" />
 </Solution>

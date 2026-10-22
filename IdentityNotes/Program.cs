@@ -13,7 +13,7 @@ namespace IdentityNotes
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("SqlServerDev") ?? throw new InvalidOperationException("Connection string 'SqlServerDev' not found.");
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<IdentityNotesDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
             });
@@ -27,7 +27,7 @@ namespace IdentityNotes
                     options.Password.RequireDigit = false;
                     options.SignIn.RequireConfirmedAccount = false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<IdentityNotesDbContext>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

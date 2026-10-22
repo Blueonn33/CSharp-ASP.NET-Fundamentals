@@ -1,4 +1,4 @@
-using IdentityNotes.Models;
+using IdentityNotes.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

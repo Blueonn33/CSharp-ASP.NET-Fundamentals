@@ -22,14 +22,7 @@ namespace IdentityNotes
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options =>
                 {
-                    options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
-                    options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Identity:Password:RequireDigit");
-                    options.Password.RequiredUniqueChars = builder.Configuration.GetValue<int>("Identity:Password:RequiredUniqueChars");
-                    options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
-
-                    options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
-
-                    options.User.RequireUniqueEmail = builder.Configuration.GetValue<bool>("Identity:User:RequireUniqueEmail");
+                    ConfigureIdentityOptions(options, builder.Configuration);
                 })
                 .AddEntityFrameworkStores<IdentityNotesDbContext>();
             builder.Services.AddControllersWithViews();
@@ -67,6 +60,18 @@ namespace IdentityNotes
                .WithStaticAssets();
 
             app.Run();
+        }
+
+        private static void ConfigureIdentityOptions(IdentityOptions options, IConfiguration configuration)
+        {
+            options.Password.RequireNonAlphanumeric = configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+            options.Password.RequireDigit = configuration.GetValue<bool>("Identity:Password:RequireDigit");
+            options.Password.RequiredUniqueChars = configuration.GetValue<int>("Identity:Password:RequiredUniqueChars");
+            options.Password.RequiredLength = configuration.GetValue<int>("Identity:Password:RequiredLength");
+
+            options.SignIn.RequireConfirmedAccount = configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+
+            options.User.RequireUniqueEmail = configuration.GetValue<bool>("Identity:User:RequireUniqueEmail");
         }
     }
 }

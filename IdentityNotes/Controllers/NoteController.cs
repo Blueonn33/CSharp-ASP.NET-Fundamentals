@@ -11,6 +11,7 @@ namespace IdentityNotes.Controllers
     [Authorize]
     public class NoteController(INoteService _noteService) : BaseController
     {
+        [AllowAnonymous]
         public async Task<IActionResult> MyNotes()
         {
             string? userId = GetUserId();

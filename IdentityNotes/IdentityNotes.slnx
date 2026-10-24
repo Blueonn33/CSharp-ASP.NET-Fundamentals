@@ -4,6 +4,7 @@
     <Project Path="../IdentityNotes.Data/IdentityNotes.Data.csproj" Id="e870d094-3e65-4850-b0eb-9b9fc79099d3" />
   </Folder>
   <Folder Name="/Services/">
+    <Project Path="../IdentityNotes.Services.Data/IdentityNotes.Services.Data.csproj" Id="d2b9765e-201c-4482-a8e8-9a5c8ce7792e" />
     <Project Path="../IdentityNotes.Services/IdentityNotes.Services.csproj" Id="5ab8cd6b-6f13-4c59-bf3e-91742f00b439" />
   </Folder>
   <Folder Name="/Web/">

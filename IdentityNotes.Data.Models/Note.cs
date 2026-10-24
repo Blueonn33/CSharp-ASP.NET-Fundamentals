@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static IdentityNotes.Common.EntityValidation.Note;
 
 namespace IdentityNotes.Data.Models
 {
@@ -13,11 +14,14 @@ namespace IdentityNotes.Data.Models
         }
 
         [Required]
+        [MaxLength(TitleMaxLength)]
         public string Title { get; set; } = null!;
 
         [Required]
+        [MaxLength(ContentMaxLength)]
         public string Content { get; set; } = null!;
 
+        [Column(TypeName = CreatedOnColumnType)]
         public DateTime CreatedOn
         {
             get; set;

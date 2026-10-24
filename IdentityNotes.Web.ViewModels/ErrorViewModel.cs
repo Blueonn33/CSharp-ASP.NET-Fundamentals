@@ -1,4 +1,4 @@
-namespace IdentityNotes.ViewModels
+namespace IdentityNotes.Web.ViewModels
 {
     public class ErrorViewModel
     {

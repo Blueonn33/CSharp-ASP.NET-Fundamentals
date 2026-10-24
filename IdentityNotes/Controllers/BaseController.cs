@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace IdentityNotes.Controllers
 {
@@ -8,7 +9,7 @@ namespace IdentityNotes.Controllers
 
         // Short implementation
         protected string? GetUserId()
-            => User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         //protected string? GetUserId()
         //{
@@ -17,7 +18,7 @@ namespace IdentityNotes.Controllers
         //        return null;
         //    }
 
-        //    return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        //    return User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         //}
     }
 }

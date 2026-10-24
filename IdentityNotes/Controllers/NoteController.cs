@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IdentityNotes.Web.ViewModels.Note;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityNotes.Controllers
 {
@@ -6,7 +7,7 @@ namespace IdentityNotes.Controllers
     {
         public async Task<IActionResult> MyNotes()
         {
-            return View();
+            return View(new List<NoteListItemViewModel>());
         }
     }
 }

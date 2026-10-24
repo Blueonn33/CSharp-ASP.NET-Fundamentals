@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/Data/">
+    <Project Path="../IdentityNotes.Data/IdentityNotes.Data.csproj" Id="e870d094-3e65-4850-b0eb-9b9fc79099d3" />
+  </Folder>
+  <Folder Name="/Web/">
+    <Project Path="IdentityNotes.csproj" />
+  </Folder>
   <Project Path="../IdentityNotes.Common/IdentityNotes.Common.csproj" Id="5eac15d5-da50-4e32-aa56-26a6636c934d" />
-  <Project Path="IdentityNotes.csproj" />
 </Solution>

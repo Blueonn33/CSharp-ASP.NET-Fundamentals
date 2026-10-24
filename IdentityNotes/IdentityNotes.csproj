@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IdentityNotes.Common\IdentityNotes.Common.csproj" />
+    <ProjectReference Include="..\IdentityNotes.Data\IdentityNotes.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -31,7 +31,7 @@ namespace IdentityNotes.Data.Models
         [ForeignKey(nameof(User))]
         public string UserId { get; set; } = null!;
 
-        public IdentityUser User
+        public virtual IdentityUser User
         {
             get; set;
         } = null!;

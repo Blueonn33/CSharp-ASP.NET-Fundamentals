@@ -3,6 +3,9 @@
     <Project Path="../IdentityNotes.Data.Models/IdentityNotes.Data.Models.csproj" Id="2452c772-0959-474a-acb8-5bbec2213a24" />
     <Project Path="../IdentityNotes.Data/IdentityNotes.Data.csproj" Id="e870d094-3e65-4850-b0eb-9b9fc79099d3" />
   </Folder>
+  <Folder Name="/Services/">
+    <Project Path="../IdentityNotes.Services/IdentityNotes.Services.csproj" Id="5ab8cd6b-6f13-4c59-bf3e-91742f00b439" />
+  </Folder>
   <Folder Name="/Web/">
     <Project Path="../IdentityNotes.Web.ViewModels/IdentityNotes.Web.ViewModels.csproj" Id="e5dfe26e-48eb-44ca-8cb6-2d7ca3734a46" />
     <Project Path="IdentityNotes.csproj" />

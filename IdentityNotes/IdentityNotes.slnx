@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Data/">
+    <Project Path="../IdentityNotes.Data.Models/IdentityNotes.Data.Models.csproj" Id="2452c772-0959-474a-acb8-5bbec2213a24" />
     <Project Path="../IdentityNotes.Data/IdentityNotes.Data.csproj" Id="e870d094-3e65-4850-b0eb-9b9fc79099d3" />
   </Folder>
   <Folder Name="/Web/">

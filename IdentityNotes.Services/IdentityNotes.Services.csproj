@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IdentityNotes.Data.Models\IdentityNotes.Data.Models.csproj" />
+    <ProjectReference Include="..\IdentityNotes.Data\IdentityNotes.Data.csproj" />
+    <ProjectReference Include="..\IdentityNotes.Services.Data\IdentityNotes.Services.Data.csproj" />
+  </ItemGroup>
+
 </Project>

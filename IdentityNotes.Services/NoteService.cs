@@ -2,6 +2,7 @@
 using IdentityNotes.Services.Contracts;
 using IdentityNotes.Services.Data.Note.Request;
 using IdentityNotes.Services.Data.Note.Response;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityNotes.Services
 {
@@ -9,22 +10,27 @@ namespace IdentityNotes.Services
     {
         // Dependency injection works in separate class libraries
         // Using primary constructor
-        public Task<IEnumerable<GetUserNotesResponseData>> GetAllUserNotesAsync(GetUserNotesRequestData requestData)
+        public async Task<IEnumerable<GetUserNotesResponseData>> GetAllUserNotesAsync(GetUserNotesRequestData requestData)
         {
             if (string.IsNullOrWhiteSpace(requestData.UserId))
             {
                 throw new ArgumentException("UserId cannot be null or empty");
             }
 
-            IEnumerable<GetUserNotesResponseData> userNotesResponseData = _context.Notes
+            IEnumerable<GetUserNotesResponseData> userNotesResponseData = await _context.Notes
                 .Where(n => n.UserId.ToLower() == requestData.UserId.ToLower())
-                .OrderBy(n => n.Id)
                 .Select(n => new GetUserNotesResponseData()
                 {
                     Id = n.Id,
                     Title = n.Title,
                     CreatedOn = n.CreatedOn
-                });
+                })
+                .OrderBy(n => n.Id)
+                .Skip(requestData.SkipEntries)
+                .Take(requestData.TakeEntries)
+                .ToArrayAsync();
+
+            return userNotesResponseData;
         }
     }
 }

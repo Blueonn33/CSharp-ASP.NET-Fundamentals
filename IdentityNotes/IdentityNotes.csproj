@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\IdentityNotes.Common\IdentityNotes.Common.csproj" />
     <ProjectReference Include="..\IdentityNotes.Data\IdentityNotes.Data.csproj" />
+    <ProjectReference Include="..\IdentityNotes.Services\IdentityNotes.Services.csproj" />
     <ProjectReference Include="..\IdentityNotes.Web.ViewModels\IdentityNotes.Web.ViewModels.csproj" />
   </ItemGroup>
 

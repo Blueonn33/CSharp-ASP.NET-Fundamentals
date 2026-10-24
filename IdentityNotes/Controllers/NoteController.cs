@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityNotes.Controllers
 {
-    public class NoteController : Controller
+    public class NoteController : BaseController
     {
         public async Task<IActionResult> MyNotes()
         {

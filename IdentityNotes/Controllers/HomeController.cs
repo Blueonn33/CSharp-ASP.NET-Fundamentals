@@ -8,6 +8,10 @@ namespace IdentityNotes.Controllers
     {
         public IActionResult Index()
         {
+            if (base.IsUserAuthenticated)
+            {
+                return RedirectToAction("MyNotes", "Note");
+            }
 
             return View();
         }

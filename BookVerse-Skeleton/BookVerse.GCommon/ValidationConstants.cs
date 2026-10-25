@@ -8,6 +8,8 @@
             public const int TitleMax = 80;
             public const int DescriptionMin = 10;
             public const int DescriptionMax = 250;
+            public const int CoverImageUrlMax = 2048;
+            public const string PublishedOnColumnType = "smalldatetime";
         }
 
         public static class Genre

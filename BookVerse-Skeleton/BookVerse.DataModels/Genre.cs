@@ -5,11 +5,15 @@ namespace BookVerse.DataModels
 {
     public class Genre
     {
-        public int Id { get; set; }
+        [Key]
+        public int Id
+        {
+            get; set;
+        }
 
-        [Required, StringLength(NameMax, MinimumLength = NameMin)]
+        [Required, StringLength(NameMax)]
         public string Name { get; set; } = null!;
 
-        public ICollection<Book> Books { get; set; } = new HashSet<Book>();
+        public virtual ICollection<Book> Books { get; set; } = new HashSet<Book>();
     }
 }

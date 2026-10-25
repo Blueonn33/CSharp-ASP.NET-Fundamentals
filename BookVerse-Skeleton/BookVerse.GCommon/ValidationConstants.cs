@@ -1,6 +1,6 @@
 ﻿namespace BookVerse.GCommon
 {
-    public class ValidationConstants
+    public static class ValidationConstants
     {
         public static class Book
         {

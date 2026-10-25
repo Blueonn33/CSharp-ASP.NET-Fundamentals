@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookVerse.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial_Create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -179,9 +179,9 @@ namespace BookVerse.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    CoverImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoverImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     PublisherId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PublishedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PublishedOn = table.Column<DateTime>(type: "smalldatetime", nullable: false),
                     GenreId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -211,7 +211,7 @@ namespace BookVerse.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UsersBooks", x => new { x.BookId, x.UserId });
+                    table.PrimaryKey("PK_UsersBooks", x => new { x.UserId, x.BookId });
                     table.ForeignKey(
                         name: "FK_UsersBooks_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -222,13 +222,14 @@ namespace BookVerse.Data.Migrations
                         name: "FK_UsersBooks_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd", 0, "55e491bf-1ddc-4ba8-a1f3-87026ec6166d", "admin@bookverse.com", true, false, null, "ADMIN@BOOKVERSE.COM", "ADMIN@BOOKVERSE.COM", "AQAAAAIAAYagAAAAEI/d8OywUy9J+5E1MO/qff9TPJBe/QpHf+dK1SlYQR1m465sPOx6nexWXc9qlbZjSg==", null, false, "6bd27f7d-1a60-4f2c-9fff-7848744decc2", false, "admin@bookverse.com" });
+                values: new object[] { "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd", 0, "b28b61da-967e-4314-8b3e-35666d50875a", "admin@bookverse.com", true, false, null, "ADMIN@BOOKVERSE.COM", "ADMIN@BOOKVERSE.COM", "AQAAAAIAAYagAAAAEOO67kr6pYw+ITCiLP5tRs9Ly/spulAtmSBAbtnmivrtsVK4gSGnw37B654knV3DSA==", null, false, "61a19506-f7a7-4f26-8526-c731ca82fbda", false, "admin@bookverse.com" });
 
             migrationBuilder.InsertData(
                 table: "Genres",
@@ -248,9 +249,9 @@ namespace BookVerse.Data.Migrations
                 columns: new[] { "Id", "CoverImageUrl", "Description", "GenreId", "IsDeleted", "PublishedOn", "PublisherId", "Title" },
                 values: new object[,]
                 {
-                    { 1, "https://m.media-amazon.com/images/I/9187Qn8bL6L._UF1000,1000_QL80_.jpg", "Emily Harper (released 2015): A quiet village, a hidden path, and a choice that changes everything.", 1, false, new DateTime(2025, 8, 11, 3, 28, 41, 852, DateTimeKind.Local).AddTicks(9918), "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd", "Whispers of the Mountain" },
-                    { 2, "https://m.media-amazon.com/images/I/719g0mh9f2L._UF1000,1000_QL80_.jpg", "Michael Turner (released: 2017): An investigator follows a trail of secrets through a city shrouded in mystery.", 2, false, new DateTime(2025, 8, 11, 3, 28, 41, 852, DateTimeKind.Local).AddTicks(9963), "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd", "Shadows in the Fog" },
-                    { 3, "https://m.media-amazon.com/images/I/71zwodP9GzL._UF1000,1000_QL80_.jpg", "Sarah Collins (released 2020): A touching story about love, distance, and the power of written words.", 3, false, new DateTime(2025, 8, 11, 3, 28, 41, 852, DateTimeKind.Local).AddTicks(9966), "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd", "Letters from the Heart" }
+                    { 1, "https://m.media-amazon.com/images/I/9187Qn8bL6L._UF1000,1000_QL80_.jpg", "Emily Harper (released 2015): A quiet village, a hidden path, and a choice that changes everything.", 1, false, new DateTime(2026, 10, 25, 17, 34, 2, 116, DateTimeKind.Local).AddTicks(6179), "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd", "Whispers of the Mountain" },
+                    { 2, "https://m.media-amazon.com/images/I/719g0mh9f2L._UF1000,1000_QL80_.jpg", "Michael Turner (released: 2017): An investigator follows a trail of secrets through a city shrouded in mystery.", 2, false, new DateTime(2026, 10, 25, 17, 34, 2, 163, DateTimeKind.Local).AddTicks(9910), "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd", "Shadows in the Fog" },
+                    { 3, "https://m.media-amazon.com/images/I/71zwodP9GzL._UF1000,1000_QL80_.jpg", "Sarah Collins (released 2020): A touching story about love, distance, and the power of written words.", 3, false, new DateTime(2026, 10, 25, 17, 34, 2, 211, DateTimeKind.Local).AddTicks(8736), "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd", "Letters from the Heart" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -303,9 +304,9 @@ namespace BookVerse.Data.Migrations
                 column: "PublisherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UsersBooks_UserId",
+                name: "IX_UsersBooks_BookId",
                 table: "UsersBooks",
-                column: "UserId");
+                column: "BookId");
         }
 
         /// <inheritdoc />

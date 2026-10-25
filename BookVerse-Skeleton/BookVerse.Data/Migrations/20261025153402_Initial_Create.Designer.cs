@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookVerse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250811002844_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20261025153402_Initial_Create")]
+    partial class Initial_Create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,8 @@ namespace BookVerse.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CoverImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -48,7 +49,7 @@ namespace BookVerse.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("smalldatetime");
 
                     b.Property<string>("PublisherId")
                         .IsRequired()
@@ -75,7 +76,7 @@ namespace BookVerse.Data.Migrations
                             Description = "Emily Harper (released 2015): A quiet village, a hidden path, and a choice that changes everything.",
                             GenreId = 1,
                             IsDeleted = false,
-                            PublishedOn = new DateTime(2025, 8, 11, 3, 28, 41, 852, DateTimeKind.Local).AddTicks(9918),
+                            PublishedOn = new DateTime(2026, 10, 25, 17, 34, 2, 116, DateTimeKind.Local).AddTicks(6179),
                             PublisherId = "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd",
                             Title = "Whispers of the Mountain"
                         },
@@ -86,7 +87,7 @@ namespace BookVerse.Data.Migrations
                             Description = "Michael Turner (released: 2017): An investigator follows a trail of secrets through a city shrouded in mystery.",
                             GenreId = 2,
                             IsDeleted = false,
-                            PublishedOn = new DateTime(2025, 8, 11, 3, 28, 41, 852, DateTimeKind.Local).AddTicks(9963),
+                            PublishedOn = new DateTime(2026, 10, 25, 17, 34, 2, 163, DateTimeKind.Local).AddTicks(9910),
                             PublisherId = "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd",
                             Title = "Shadows in the Fog"
                         },
@@ -97,7 +98,7 @@ namespace BookVerse.Data.Migrations
                             Description = "Sarah Collins (released 2020): A touching story about love, distance, and the power of written words.",
                             GenreId = 3,
                             IsDeleted = false,
-                            PublishedOn = new DateTime(2025, 8, 11, 3, 28, 41, 852, DateTimeKind.Local).AddTicks(9966),
+                            PublishedOn = new DateTime(2026, 10, 25, 17, 34, 2, 211, DateTimeKind.Local).AddTicks(8736),
                             PublisherId = "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd",
                             Title = "Letters from the Heart"
                         });
@@ -155,15 +156,15 @@ namespace BookVerse.Data.Migrations
 
             modelBuilder.Entity("BookVerse.DataModels.UserBook", b =>
                 {
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("BookId", "UserId");
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("UserId");
+                    b.HasKey("UserId", "BookId");
+
+                    b.HasIndex("BookId");
 
                     b.ToTable("UsersBooks");
                 });
@@ -289,15 +290,15 @@ namespace BookVerse.Data.Migrations
                         {
                             Id = "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "55e491bf-1ddc-4ba8-a1f3-87026ec6166d",
+                            ConcurrencyStamp = "b28b61da-967e-4314-8b3e-35666d50875a",
                             Email = "admin@bookverse.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@BOOKVERSE.COM",
                             NormalizedUserName = "ADMIN@BOOKVERSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI/d8OywUy9J+5E1MO/qff9TPJBe/QpHf+dK1SlYQR1m465sPOx6nexWXc9qlbZjSg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOO67kr6pYw+ITCiLP5tRs9Ly/spulAtmSBAbtnmivrtsVK4gSGnw37B654knV3DSA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6bd27f7d-1a60-4f2c-9fff-7848744decc2",
+                            SecurityStamp = "61a19506-f7a7-4f26-8526-c731ca82fbda",
                             TwoFactorEnabled = false,
                             UserName = "admin@bookverse.com"
                         });
@@ -412,7 +413,7 @@ namespace BookVerse.Data.Migrations
                     b.HasOne("BookVerse.DataModels.Book", "Book")
                         .WithMany("UsersBooks")
                         .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")

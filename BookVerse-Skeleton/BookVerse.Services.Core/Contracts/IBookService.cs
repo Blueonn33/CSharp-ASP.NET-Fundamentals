@@ -1,6 +1,6 @@
-﻿using BookVerse.ViewModels;
-using BookVerse.ViewModels.Book;
+﻿using BookVerse.ViewModels.Book;
 using BookVerse.ViewModels.Genre;
+using BookVerse.ViewModels.ReadingList;
 
 namespace BookVerse.Services.Core.Contracts
 {

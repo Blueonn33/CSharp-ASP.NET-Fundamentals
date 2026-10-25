@@ -1,4 +1,4 @@
-﻿namespace BookVerse.ViewModels
+﻿namespace BookVerse.ViewModels.Book
 {
     public class BookDetailsViewModel
     {

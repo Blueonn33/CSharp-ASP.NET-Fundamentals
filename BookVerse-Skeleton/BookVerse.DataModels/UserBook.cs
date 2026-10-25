@@ -20,6 +20,7 @@ namespace BookVerse.DataModels
         }
 
         [ForeignKey(nameof(BookId))]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
         public virtual Book Book { get; set; } = null!;
     }
 }

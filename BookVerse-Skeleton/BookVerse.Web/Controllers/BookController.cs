@@ -1,5 +1,5 @@
 ﻿using BookVerse.Services.Core.Contracts;
-using BookVerse.ViewModels;
+using BookVerse.ViewModels.Book;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

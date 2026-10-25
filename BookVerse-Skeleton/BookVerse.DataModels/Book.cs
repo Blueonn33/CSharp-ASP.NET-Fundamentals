@@ -7,31 +7,45 @@ namespace BookVerse.DataModels
 {
     public class Book
     {
-        public int Id { get; set; }
+        [Key]
+        public int Id
+        {
+            get; set;
+        }
 
-        [Required, StringLength(TitleMax, MinimumLength = TitleMin)]
+        [Required, StringLength(TitleMax)]
         public string Title { get; set; } = null!;
 
-        [Required, StringLength(DescriptionMax, MinimumLength = DescriptionMin)]
+        [Required, StringLength(DescriptionMax)]
         public string Description { get; set; } = null!;
 
-        public string? CoverImageUrl { get; set; }
+        [StringLength(CoverImageUrlMax)]
+        public string? CoverImageUrl
+        {
+            get; set;
+        }
 
-        [Required]
         public string PublisherId { get; set; } = null!;
 
         [ForeignKey(nameof(PublisherId))]
-        public IdentityUser Publisher { get; set; } = null!;
+        public virtual IdentityUser Publisher { get; set; } = null!;
 
-        [Required]
-        public DateTime PublishedOn { get; set; }
+        [Column(TypeName = PublishedOnColumnType)]
+        public DateTime PublishedOn
+        {
+            get; set;
+        }
 
-        [Required]
-        public int GenreId { get; set; }
-        public Genre Genre { get; set; } = null!;
+        public int GenreId
+        {
+            get; set;
+        }
+
+        [ForeignKey(nameof(GenreId))]
+        public virtual Genre Genre { get; set; } = null!;
 
         public bool IsDeleted { get; set; } = false;
 
-        public ICollection<UserBook> UsersBooks { get; set; } = new HashSet<UserBook>();
+        public virtual ICollection<UserBook> UsersBooks { get; set; } = new HashSet<UserBook>();
     }
 }

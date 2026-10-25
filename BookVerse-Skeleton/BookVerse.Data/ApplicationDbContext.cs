@@ -5,39 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookVerse.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
-        public DbSet<Book> Books { get; set; } = null!;
-        public DbSet<Genre> Genres { get; set; } = null!;
-        public DbSet<UserBook> UsersBooks { get; set; } = null!;
+        public virtual DbSet<Book> Books { get; set; } = null!;
+        public virtual DbSet<Genre> Genres { get; set; } = null!;
+        public virtual DbSet<UserBook> UsersBooks { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<Book>()
-                   .HasOne(b => b.Genre)
-                   .WithMany(g => g.Books)
-                   .HasForeignKey(b => b.GenreId)
-                   .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<UserBook>()
-                   .HasKey(ub => new { ub.BookId, ub.UserId });
-
-            builder.Entity<UserBook>()
-                   .HasOne(ub => ub.Book)
-                   .WithMany(b => b.UsersBooks)
-                   .HasForeignKey(ub => ub.BookId)
-                   .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<UserBook>()
-                   .HasOne(ub => ub.User)
-                   .WithMany()
-                   .HasForeignKey(ub => ub.UserId)
-                   .OnDelete(DeleteBehavior.Cascade);
 
             var defaultUser = new IdentityUser
             {

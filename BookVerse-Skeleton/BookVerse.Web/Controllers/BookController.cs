@@ -1,17 +1,20 @@
 ﻿using BookVerse.Services.Core.Contracts;
+using BookVerse.Services.Data.Book.Request;
+using BookVerse.Services.Data.Book.Response;
 using BookVerse.ViewModels.Book;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static BookVerse.GCommon.ApplicationConstants;
 
 namespace BookVerse.Web.Controllers
 {
     public class BookController : BaseController
     {
-        private readonly IBookService _bookService;
+        private readonly IBookService bookService;
 
         public BookController(IBookService bookService)
         {
-            _bookService = bookService;
+            this.bookService = bookService;
         }
 
         [AllowAnonymous]
@@ -19,7 +22,42 @@ namespace BookVerse.Web.Controllers
         public async Task<IActionResult> Index()
         {
             string? userId = GetUserId();
+
+            IEnumerable<GetAllBooksResponseData> allBooksResponseData = await bookService.GetAllBooksAsync();
+
+            foreach (var bookData in allBooksResponseData)
+            {
+                GetUsersListedBookRequestData usersListedBookRequestData = new GetUsersListedBookRequestData()
+                {
+                    BookId = bookData.Id
+                };
+
+                GetUsersListedBookResponseData usersListedBookData = await bookService.GetUsersIdsListedBookByIdAsync(usersListedBookRequestData);
+
+                BookIndexViewModel bookViewModel = new BookIndexViewModel()
+                {
+                    Id = bookData.Id,
+                    Title = bookData.Title,
+                    CoverImageUrl = bookData.CoverImageUrl ?? DefaultCoverImageUrl,
+                    Genre = bookData.GenreName,
+                    SavedCount = usersListedBookData.UsersListedIds.Count(),
+                    IsPublisher = bookData.PublisherId == userId
+                };
+            }
+
+            IEnumerable<BookIndexViewModel> allBooksViewModel = allBooksResponseData
+                .Select(b => new BookIndexViewModel()
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Genre = b.GenreName,
+                    CoverImageUrl = b.CoverImageUrl ?? DefaultCoverImageUrl,
+                    SavedCount =
+                })
+
+
             var books = await _bookService.GetAllBooksAsync(userId);
+
             return View(books);
         }
 

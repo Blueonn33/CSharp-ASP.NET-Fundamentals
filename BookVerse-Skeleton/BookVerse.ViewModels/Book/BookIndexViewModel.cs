@@ -18,7 +18,7 @@
             get; set;
         }
 
-        public bool IsAuthor
+        public bool IsPublisher
         {
             get; set;
         }

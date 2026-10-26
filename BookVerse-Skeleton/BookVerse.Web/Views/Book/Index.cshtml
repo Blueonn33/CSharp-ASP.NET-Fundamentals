@@ -39,7 +39,7 @@
                             <i class="fas fa-info-circle"></i> Details
                         </a>
 
-                        @if (User?.Identity?.IsAuthenticated == true && !book.IsAuthor && !book.IsSaved)
+                        @if (User?.Identity?.IsAuthenticated == true && !book.IsPublisher && !book.IsSaved)
                         {
                             <form asp-controller="Book" asp-action="AddToMyBooks" method="post" class="flex-fill">
                                 <input type="hidden" name="id" value="@book.Id" />

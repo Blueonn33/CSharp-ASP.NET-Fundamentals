@@ -6,6 +6,9 @@ namespace BookVerse.Data.Configuration
 {
     public class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
     {
+        // It's not good to seed Users with public password through source code
+        // TODO: Use UserSecrets or any Secret Vault storage
+
         public static IdentityUser DefaultUser
           => new IdentityUser
           {

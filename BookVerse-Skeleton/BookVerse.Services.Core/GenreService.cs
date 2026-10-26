@@ -28,5 +28,13 @@ namespace BookVerse.Services.Core
 
             return allGenresResponse;
         }
+
+        public async Task<bool> GenreExistsByIdAsync(int genreId)
+        {
+            bool genreExists = await dbContext.Genres
+                .AnyAsync(g => g.Id == genreId);
+
+            return genreExists;
+        }
     }
 }

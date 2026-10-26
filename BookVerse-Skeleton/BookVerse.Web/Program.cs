@@ -31,6 +31,7 @@ namespace BookVerse.Web
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IGenreService, GenreService>();
 
             builder.Services.AddControllersWithViews();
 

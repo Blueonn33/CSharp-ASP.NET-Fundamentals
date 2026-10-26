@@ -5,9 +5,9 @@ namespace BookVerse.Services.Core.Contracts
 {
     public interface IBookService
     {
-        //Task AddBookAsync(BookCreateInputModel model, string publisherId);
+        Task<bool> AddBookAsync(AddNewBookRequestData requestData);
 
-        //Task AddToMyBooksAsync(int id, string userId);
+        Task<bool> AddToMyBooksAsync(AddToMyBooksRequestData requestData);
 
         //Task DeleteBookAsync(int id, string userId);
 
@@ -15,17 +15,15 @@ namespace BookVerse.Services.Core.Contracts
 
         Task<GetUsersListedBookResponseData> GetUsersIdsListedBookByIdAsync(GetUsersListedBookRequestData requestData);
 
-        //Task<BookIndexViewModel?> GetBookByIdAsync(int id);
+        Task<GetBookDetailsResponseData?> GetBookByIdAsync(int id);
 
-        //Task<BookDetailsViewModel> GetBookDetailsByIdAsync(int id);
+        Task<bool> IsBookSavedAsync(IsBookSavedRequestData requestData);
 
-        //Task<bool> IsBookSavedAsync(int bookId, string userId);
+        Task<bool> IsBookPublisherAsync(IsBookPublisherRequestData requestData);
 
-        //Task<bool> IsBookPublisherAsync(int bookId, string userId);
+        Task<IEnumerable<GetMyBooksResponseData>> GetMyBooksAsync(string userId);
 
-        //Task<BookCreateInputModel> GetBookCreateViewModelAsync();
-
-        //Task<IEnumerable<BookMyBooksViewModel>> GetMyBooksAsync(string userId);
+        Task<bool> ExistsByIdAsync(int id);
 
         //Task RemoveFromMyBooksAsync(int id, string userId);
 

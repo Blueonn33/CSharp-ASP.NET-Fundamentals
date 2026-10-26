@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookVerse.GCommon
+﻿namespace BookVerse.GCommon
 {
     public static class ApplicationConstants
     {
         public const string DefaultCoverImageUrl = "~/images/default-image.jpg";
+        public const string DefaultPublishedDateFormat = "dd/MM/yyyy";
+        public const string UnknownUsername = "Unknown";
     }
 }

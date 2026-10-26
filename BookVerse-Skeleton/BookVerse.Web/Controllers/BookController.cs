@@ -15,6 +15,7 @@ namespace BookVerse.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             string? userId = GetUserId();

@@ -11,6 +11,11 @@ namespace BookVerse.Web.Controllers
 
         public IActionResult Index()
         {
+            if (IsUserAuthenticated())
+            {
+                return RedirectToAction("Index", "Book");
+            }
+
             return View();
         }
 

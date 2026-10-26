@@ -6,15 +6,5 @@
         {
             get; set;
         }
-
-        public int SkipEntries
-        {
-            get; set;
-        }
-
-        public int TakeEntries
-        {
-            get; set;
-        }
     }
 }

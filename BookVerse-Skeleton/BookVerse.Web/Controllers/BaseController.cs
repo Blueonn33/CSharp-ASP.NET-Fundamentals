@@ -11,5 +11,10 @@ namespace BookVerse.Web.Controllers
         {
             return User?.FindFirstValue(ClaimTypes.NameIdentifier);
         }
+
+        protected bool IsUserAuthenticated()
+        {
+            return User.Identity?.IsAuthenticated ?? false;
+        }
     }
 }

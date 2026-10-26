@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BookVerse.DataModels\BookVerse.DataModels.csproj" />
     <ProjectReference Include="..\BookVerse.Data\BookVerse.Data.csproj" />
+    <ProjectReference Include="..\BookVerse.Services.Data\BookVerse.Services.Data.csproj" />
     <ProjectReference Include="..\BookVerse.ViewModels\BookVerse.ViewModels.csproj" />
   </ItemGroup>
 

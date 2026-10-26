@@ -5,7 +5,7 @@ namespace BookVerse.Services.Core.Contracts
 {
     public interface IBookService
     {
-        //Task AddBookAsync(BookCreateViewModel model, string publisherId);
+        //Task AddBookAsync(BookCreateInputModel model, string publisherId);
 
         //Task AddToMyBooksAsync(int id, string userId);
 
@@ -23,7 +23,7 @@ namespace BookVerse.Services.Core.Contracts
 
         //Task<bool> IsBookPublisherAsync(int bookId, string userId);
 
-        //Task<BookCreateViewModel> GetBookCreateViewModelAsync();
+        //Task<BookCreateInputModel> GetBookCreateViewModelAsync();
 
         //Task<IEnumerable<BookMyBooksViewModel>> GetMyBooksAsync(string userId);
 

@@ -1,4 +1,5 @@
-﻿@model BookDetailsViewModel
+﻿@using BookVerse.Web.Controllers
+@model BookDetailsViewModel
 
 @{
     ViewData["Title"] = "Book Details";
@@ -9,16 +10,9 @@
 </div>
 <hr />
 
-@* <div class="row justify-content-center" style="margin: 0 auto; max-width: 800px;">
+<div class="row justify-content-center" style="margin: 0 auto; max-width: 800px;">
     <div class="col-md-4 text-center">
-        @if (!string.IsNullOrEmpty(Model.CoverImageUrl))
-        {
-            <img src="@Model.CoverImageUrl" class="img-fluid" style="max-width: 100%; height: auto;" alt="@Model.Title" />
-        }
-        else
-        {
-            <img src="~/images/default-image.jpg" class="img-fluid" style="max-width: 100%; height: auto;" alt="No Image Available" />
-        }
+        <img src="@Model.CoverImageUrl" class="img-fluid" style="max-width: 100%; height: auto;" alt="@Model.Title" />
     </div>
 
     <div class="col-md-8">
@@ -28,7 +22,7 @@
             <p class="card-text">@Model.Description</p>
             <hr />
             <p class="card-text"><small class="text-muted">Genre: @Model.Genre</small></p>
-            <p class="card-text"><small class="text-muted">Published On: @Model.PublishedOn.ToString("dd/MM/yyyy")</small></p>
+            <p class="card-text"><small class="text-muted">Published On: @Model.PublishedOn</small></p>
             <p class="card-text"><small class="text-muted">Publisher: @Model.Publisher</small></p>
             <hr />
         </div>
@@ -41,7 +35,7 @@
 
                 @if (User?.Identity?.IsAuthenticated == true && !Model.IsPublisher && !Model.IsSaved)
                 {
-                    <form asp-controller="Book" asp-action="AddToMyBooks" method="post">
+                    <form asp-controller="Book" asp-action="AddToMyBooks" asp-route-returnUrl="@Url.Action(nameof(BookController.Details))" method="post">
                         <input type="hidden" name="id" value="@Model.Id" />
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-book"></i> My Books
@@ -61,4 +55,4 @@
             </div>
         </div>
     </div>
-</div> *@
+</div>

@@ -1,7 +1,9 @@
 ﻿using BookVerse.Services.Core.Contracts;
 using BookVerse.Services.Data.Book.Request;
 using BookVerse.Services.Data.Book.Response;
+using BookVerse.Services.Data.Genre.Response;
 using BookVerse.ViewModels.Book;
+using BookVerse.ViewModels.Genre;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static BookVerse.GCommon.ApplicationConstants;
@@ -11,10 +13,12 @@ namespace BookVerse.Web.Controllers
     public class BookController : BaseController
     {
         private readonly IBookService bookService;
+        private readonly IGenreService genreService;
 
-        public BookController(IBookService bookService)
+        public BookController(IBookService bookService, IGenreService genreService)
         {
             this.bookService = bookService;
+            this.genreService = genreService;
         }
 
         [AllowAnonymous]
@@ -63,11 +67,17 @@ namespace BookVerse.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            return Ok();
+            BookCreateInputModel inputModel = new BookCreateInputModel()
+            {
+                PublishedOn = DateTime.Today,
+                Genres = await GetAllGenresDropdownListAsync()
+            };
+
+            return View(inputModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BookCreateViewModel model)
+        public async Task<IActionResult> Create(BookCreateInputModel model)
         {
             return Ok();
         }
@@ -111,6 +121,22 @@ namespace BookVerse.Web.Controllers
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             return Ok();
+        }
+
+        private async Task<IEnumerable<GenreViewModel>> GetAllGenresDropdownListAsync()
+        {
+            IEnumerable<GetAllGenresResponseData> allGenresResponseData =
+                await genreService.GetAllGenresAlphabeticallyAsync();
+
+            IEnumerable<GenreViewModel> allGenresViewModel = allGenresResponseData
+                .Select(g => new GenreViewModel()
+                {
+                    Id = g.Id,
+                    Name = g.Name
+                })
+                .ToArray();
+
+            return allGenresViewModel;
         }
     }
 }

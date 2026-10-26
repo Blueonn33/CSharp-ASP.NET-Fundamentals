@@ -1,4 +1,6 @@
 using BookVerse.Data;
+using BookVerse.Services.Core;
+using BookVerse.Services.Core.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +29,8 @@ namespace BookVerse.Web
                 options.Password.RequireUppercase = false;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddScoped<IBookService, BookService>();
 
             builder.Services.AddControllersWithViews();
 

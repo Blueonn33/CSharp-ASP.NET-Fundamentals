@@ -25,6 +25,8 @@ namespace BookVerse.Web.Controllers
 
             IEnumerable<GetAllBooksResponseData> allBooksResponseData = await bookService.GetAllBooksAsync();
 
+            ICollection<BookIndexViewModel> allBooksViewModelsList = new List<BookIndexViewModel>();
+
             foreach (var bookData in allBooksResponseData)
             {
                 GetUsersListedBookRequestData usersListedBookRequestData = new GetUsersListedBookRequestData()
@@ -41,24 +43,15 @@ namespace BookVerse.Web.Controllers
                     CoverImageUrl = bookData.CoverImageUrl ?? DefaultCoverImageUrl,
                     Genre = bookData.GenreName,
                     SavedCount = usersListedBookData.UsersListedIds.Count(),
-                    IsPublisher = bookData.PublisherId == userId
+                    IsPublisher = bookData.PublisherId.ToLowerInvariant() == userId?.ToLowerInvariant(),
+                    IsSaved = usersListedBookData.UsersListedIds
+                        .Any(id => id.ToLowerInvariant() == userId?.ToLowerInvariant())
                 };
+
+                allBooksViewModelsList.Add(bookViewModel);
             }
 
-            IEnumerable<BookIndexViewModel> allBooksViewModel = allBooksResponseData
-                .Select(b => new BookIndexViewModel()
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    Genre = b.GenreName,
-                    CoverImageUrl = b.CoverImageUrl ?? DefaultCoverImageUrl,
-                    SavedCount =
-                })
-
-
-            var books = await _bookService.GetAllBooksAsync(userId);
-
-            return View(books);
+            return View(allBooksViewModelsList);
         }
 
         [AllowAnonymous]

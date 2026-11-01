@@ -21,5 +21,10 @@ namespace MyBlog.Services.Models
         {
             get; set;
         }
+
+        public DateTime PublishDate
+        {
+            get; set;
+        }
     }
 }

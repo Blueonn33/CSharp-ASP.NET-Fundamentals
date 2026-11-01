@@ -31,6 +31,7 @@ namespace MyBlog.Controllers
         }
 
         [HttpPost]
+        //[RequestFormLimits(MultipartBodyLengthLimit = 10485760)] // 10 MB
         public async Task<IActionResult> Create(BlogServiceModel model)
         {
             if (!ModelState.IsValid)

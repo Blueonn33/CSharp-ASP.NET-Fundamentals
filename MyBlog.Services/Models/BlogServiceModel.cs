@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MyBlog.Services.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyBlog.Services.Models
 {
-    public class BlogServiceModel
+    public class BlogServiceModel : IValidatableObject
     {
         public int Id
         {
@@ -25,6 +26,27 @@ namespace MyBlog.Services.Models
         public DateTime PublishDate
         {
             get; set;
+        }
+
+        [Required]
+        public DateTime ValidFrom
+        {
+            get; set;
+        }
+
+        [Required]
+        [IsAfter(nameof(ValidFrom), ErrorMessage = "ValidTo must be after ValidFrom")]
+        public DateTime ValidTo
+        {
+            get; set;
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (PublishDate.Date > DateTime.Now.Date)
+            {
+                yield return new ValidationResult("PublishDate cannot be in the future", [nameof(PublishDate)]);
+            }
         }
     }
 }

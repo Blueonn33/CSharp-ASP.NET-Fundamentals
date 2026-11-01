@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Data;
@@ -28,6 +29,11 @@ namespace MyBlog
                 {
                     option.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider("dd.MM.yyyy"));
                 });
+
+            builder.Services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10 MB
+            });
 
             builder.Services.AddScoped<IBlogService, BlogService>();
             builder.Services.AddScoped<IRepository, Repository>();

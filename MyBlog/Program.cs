@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Data;
 using MyBlog.Data.Common;
+using MyBlog.ModelBinders;
 using MyBlog.Services.Contracts;
 using MyBlog.Services.Services;
 
@@ -21,7 +22,12 @@ namespace MyBlog
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
+
+            builder.Services.AddControllersWithViews()
+                .AddMvcOptions(option =>
+                {
+                    option.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider("dd.MM.yyyy"));
+                });
 
             builder.Services.AddScoped<IBlogService, BlogService>();
             builder.Services.AddScoped<IRepository, Repository>();
